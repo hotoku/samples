@@ -1,0 +1,31 @@
+{% macro li(val) %}
+<li> {{val}} </li>
+{% endmacro %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <pre> li(i) </pre>
+    <ul>
+      {% for i in items %}
+      {{ li(i) }}
+      {% endfor %}
+    </ul>
+    <pre> li(i) | escape </pre>
+    <ul>
+      {% for i in items %}
+      {{ li(i) | escape }}
+      {% endfor %}
+    </ul>
+    <pre> li(i | escape) </pre>
+    <ul>
+      {% for i in items %}
+      {{ li(i | escape) }}
+      {% endfor %}
+    </ul>
+  </body>
+</html>
