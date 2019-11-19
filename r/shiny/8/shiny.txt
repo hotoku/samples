@@ -1,0 +1,46 @@
+name	value
+EDITOR	vi
+HOME	/home/shiny
+LANG	en_US.UTF-8
+LD_LIBRARY_PATH	/usr/local/lib/R/lib:/usr/local/lib:/usr/lib/x86_64-linux-gnu:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server
+LN_S	ln -s
+LOG_FILE	
+MAKE	make
+OLDPWD	/srv/shiny-server/app/8
+PAGER	/usr/bin/pager
+PATH	/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+PWD	/srv/shiny-server/app/8
+R_ARCH	
+R_BROWSER	xdg-open
+R_BZIPCMD	/bin/bzip2
+R_DOC_DIR	/usr/local/lib/R/doc
+R_GZIPCMD	/bin/gzip
+R_HOME	/usr/local/lib/R
+R_INCLUDE_DIR	/usr/local/lib/R/include
+R_LIBS	/usr/local/lib/R/site-library:/usr/local/lib/R/library:/usr/lib/R/library
+R_LIBS_SITE	
+R_LIBS_USER	/usr/local/lib/R/site-library
+R_PAPERSIZE	letter
+R_PDFVIEWER	/usr/bin/xdg-open
+R_PLATFORM	x86_64-pc-linux-gnu
+R_PRINTCMD	/usr/bin/lpr
+R_RD4PDF	times,inconsolata,hyper
+R_SESSION_TMPDIR	/tmp/RtmpPUoB2S
+R_SHARE_DIR	/usr/local/lib/R/share
+R_STRIP_SHARED_LIB	strip --strip-unneeded
+R_STRIP_STATIC_LIB	strip --strip-debug
+R_SYSTEM_ABI	linux,gcc,gxx,gfortran,gfortran
+R_TEXI2DVICMD	/usr/bin/texi2dvi
+R_UNZIPCMD	/usr/bin/unzip
+R_ZIPCMD	/usr/bin/zip
+RSTUDIO_PANDOC	/opt/shiny-server/ext/pandoc
+SED	/bin/sed
+SHINY_APP	/srv/shiny-server/app/8
+SHINY_GAID	
+SHINY_MODE	shiny
+SHINY_PORT	45133
+SHINY_SERVER_VERSION	1.5.12.933
+SHINY_SHARED_SECRET	c97f6e0548842dda6dd3fd4f9ca960f5
+SHLVL	1
+TAR	/bin/tar
+WORKER_ID	c7e083a451325e59

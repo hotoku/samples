@@ -1,0 +1,4 @@
+dot -Kdot -Tpng 1.dot -o1.png
+
+
+-K: 描画アルゴリズム

@@ -1,0 +1,6 @@
+.Rhistory
+*/.ipynb_checkpoints/
+*.png
+*.pdf
+*.gif
+kitematic/

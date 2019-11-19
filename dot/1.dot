@@ -1,0 +1,83 @@
+digraph {
+  graph [         
+         charset = "UTF-8";
+         label = "sample graph",
+         labelloc = "t",
+         labeljust = "c",
+         bgcolor = "#343434",
+         fontcolor = white,
+         fontsize = 18,
+         style = "filled",
+         rankdir = TB,
+         margin = 0.2,
+         splines = spline,
+         ranksep = 1.0,
+         nodesep = 0.9         
+         ];
+  node [
+        colorscheme = "rdylgn11"
+        style = "solid,filled",
+        fontsize = 16,
+        fontcolor = 6,
+        fontname = "Migu 1M",
+        color = 7,
+        fillcolor = 11,
+        fixedsize = true,
+        height = 0.6,
+        width = 1.2
+        ];
+
+  edge [
+        style = solid,
+        fontsize = 14,
+        fontcolor = white,
+        fontname = "Migu 1M",
+        color = white,
+        labelfloat = true,
+        labeldistance = 2.5,
+        labelangle = 70
+        ];
+
+  subgraph {
+    // input
+    {
+      rank = same;
+      term [shape = box];
+      refresh [shape = box];
+      targetValue [shape = box];
+      width, height, pixelratio [shape = box];
+    }
+
+
+    // output
+    {
+      rank = same;
+      plot [shape = box, color=2];
+      targetBox [shape = box, color=2];
+    }
+
+    // メモリ上のデータ
+    {
+      rank = same;
+      serverData [shape = circle];
+      plotFunc [shape = circle];
+    }
+    filteredData [shape = circle];
+
+    
+
+    refresh -> serverData;
+
+    filteredData -> targetBox;
+
+    serverData -> filteredData;
+    targetValue -> filteredData;
+    term -> filteredData;
+
+    filteredData -> plot;
+    width, height, pixelratio -> plot;
+    plotFunc -> plot;
+
+    term -> plotFunc
+  }
+}

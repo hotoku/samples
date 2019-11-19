@@ -1,0 +1,154 @@
+---
+title: "r4ds"
+output: html_notebook
+---
+
+
+```{r}
+library(tidyverse)
+```
+
+### 3.2.2 
+
+```{r}
+ggplot(data=mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+```
+
+### 3.2.4
+ex.1
+```{r}
+ggplot(data=mpg)
+```
+ggplotだけだと何も出ない
+
+
+ex.4
+```{r}
+ggplot(data=mpg) + 
+  geom_point(mapping = aes(x = hwy, y = cyl))
+```
+
+
+ex.5
+```{r}
+ggplot(data=mpg) + 
+  geom_point(mapping = aes(x = class, y = drv))
+```
+
+## 3.3
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color=class))
+```
+
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, size = class))
+```
+警告を出してくれる
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, shape = class))
+```
+
+shapeは6種類まで
+
+
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
+```
+
+
+
+
+### 3.3.1 excercise
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color="blue"))
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color="hoge"))
+```
+"blue"という定数値でクラス分けしろ、という命令と解釈された、と思ってcolor=1という文字列でない定数を入れてみたら、変なことになった。
+color=Tと論理型だと、期待通りの結果。
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color=1))
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color=T))
+```             
+
+
+ex.4
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = displ, color=displ))
+```
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x=displ, y=hwy, stroke=ifelse(drv=="f", 3, 1)), shape=21)
+```
+strokeは、線の太さを変える
+
+## 3.5 Facets
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_wrap(~ class, nrow=2)
+```
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x=displ, y=hwy)) + 
+  facet_grid(drv ~ cyl)
+```
+facetの軸(drv, cyl)を画面に出す方法を知りたい
+
+
+
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x=displ, y=hwy)) + 
+  facet_grid(.~class)
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x=displ, y=hwy)) + 
+  facet_wrap(~class)
+
+```
+face_gridとfacet_wrapの違い
+- facet_warp: よしなに並べてくれる
+- facet_grid: 意地でも一列を保つ
+
+
+
+Q: 連続変数でfacetしたら？
+A: 大変なことになる
+```{r}
+ggplot(data=data.frame(x=1:20, y=rnorm(20))) +
+  geom_point(mapping = aes(x=x, y=y)) +
+  facet_wrap(~y)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
