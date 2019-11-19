@@ -1,0 +1,5 @@
+↓↓ included text
+{% include "6-2.jinja.txt" %}
+↑↑ included text
+
+this is root file: {{ val }}
