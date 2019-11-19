@@ -1,0 +1,9 @@
+{% set vals = [1,2, 3] %}
+{% for i in vals %}
+{{ greeting }}! from {{ name }}
+This is greeting #{{ i }}.
+{% if i == 3 %}
+
+END OF LOOP!!
+{% endif %}
+{% endfor %}
