@@ -1,0 +1,3 @@
+{{ greeting }}! from {{ name }}
+
+This is very first example of template file in jinja.
