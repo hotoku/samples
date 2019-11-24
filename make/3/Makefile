@@ -1,6 +1,6 @@
 .PHONY: push task1 all
 
-push: task1
+push:
 	echo push
 
 task1:
