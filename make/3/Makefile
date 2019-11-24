@@ -1,10 +1,10 @@
-.PHONY: push image all
+.PHONY: push task1 all
 
-image:
-	echo image
+task1:
+	echo task1
 
-push: image
+push: task1
 	echo push
 
-all: image push
+all: task1 push
 	echo all
