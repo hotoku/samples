@@ -4,3 +4,4 @@
 *.pdf
 *.gif
 kitematic/
+*/__pycache__/
