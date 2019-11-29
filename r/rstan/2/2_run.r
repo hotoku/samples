@@ -3,7 +3,7 @@ library(tidyverse)
 
 set.seed(101)
 
-ITER <- 5e4
+ITER <- 2e4
 WARMUP <- 1e4
 CHAINS <- 4
 
