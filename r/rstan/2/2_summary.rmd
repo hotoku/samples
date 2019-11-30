@@ -1,0 +1,52 @@
+# RStanの結果の確認の仕方
+```{r library, include=FALSE}
+library(rstan)
+library(ggmcmc)
+```
+
+
+``` {r load, include=FALSE}
+load("2.RData")
+```
+
+
+```{r object}
+stan_fit
+```
+
+結果の要約が表示される。n_eff, Rhatは、収束判断の材料。
+
+- n_eff: 実効的なサンプル数
+- Rhat: 収束性の指標
+
+n_effは、100以上、Rhat < 1.1が収束の目安。<br>
+参考文献：https://www.amazon.co.jp/dp/B00I60M6H6/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1
+
+```{r get_stanmodel}
+get_stanmodel(stan_fit)
+```
+
+```{r get_funcs}
+cat("===経過時間===\n")
+get_elapsed_time(stan_fit)
+cat("===初期値===\n")
+get_inits(stan_fit)
+cat("===乱数のシード===\n")
+get_seed(stan_fit)
+```
+
+初期値は、[-2,2]から一様に取られるらしい。lower, upperがある場合は、適当な変換をかけてその範囲に収まるようにする。
+
+
+```{r ggs}
+ggs(stan_fit) %>% head
+```
+
+ggmcmcに渡すためのtibbleを作る関数。全部のパラメータに対して作ったら大変なことになるので、一部に制限するオプションがあると期待。
+
+```{r ggmcmc}
+ggmcmc(ggs(stan_fit, inc_warmup = FALSE, stan_include_auxiliar = TRUE),
+       file="2_fit.pdf")
+```
+
+全部描くと時間がかかるので、 `plot=c("traceplot", "density")` くらいで良い気がする

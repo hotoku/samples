@@ -1,10 +1,13 @@
 library(rstan)
 library(tidyverse)
 
+rm(list=ls(all=T))
+source("utils.r")
+
 set.seed(101)
 
-ITER <- 2e4
-WARMUP <- 1e4
+ITER <- 2e3
+WARMUP <- 5e2
 CHAINS <- 4
 
 NUM_DATA <- 1000
@@ -27,9 +30,18 @@ dat <- list(
   Y=Y
 )
 
-model <- stan_model(file="rstan/2/2_model.stan")
+src_dir = "rstan/2"
+model_code = "2_model.stan"
+model_bin = "2_model.rds"
+if(should_make(model_code, model_bin, src_dir)){
+  model <- stan_model(file=file.path(src_dir, model_code))
+  saveRDS(model, file="2_model.rds")
+} else {
+  cat("skipped compile")
+  model <- readRDS(file.path(src_dir, model_bin))
+}
 stan_fit <- sampling(model, data=dat, verbose=TRUE,
                      iter = ITER, warmup = WARMUP, chains = CHAINS,
                      cores = 4)
 
-save.image(file="2.RData")
+save.image(file=file.path(src_dir, "2.RData"))
