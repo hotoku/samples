@@ -3,5 +3,7 @@
 .rstudio
 kitematic
 .bash_history
-*.rds
 *.Rds
+*.rds
+*.RData
+.active-rstudio-document
