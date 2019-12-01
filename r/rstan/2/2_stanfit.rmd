@@ -1,0 +1,10 @@
+# stanobjectの中身
+```{r library, include=FALSE}
+library(rstan)
+load("2.RData")
+```
+
+
+```{r object}
+str(stan_fit)
+```
