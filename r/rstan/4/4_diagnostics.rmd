@@ -1,0 +1,26 @@
+---
+Stanの結果診断
+---
+
+```{r load, include=FALSE}
+library(rstan)
+library(tidyverse)
+library(ggmcmc)
+
+rm(list=ls(all=T))
+source("~/utils.r")
+
+load("4.RData")
+```
+
+```{r print}
+stan_fit
+```
+
+```{r}
+tib <- ggs(stan_fit)
+head(tib)
+```
+```{r}
+ggmcmc(tib, "4_diagnostics.pdf")
+```
