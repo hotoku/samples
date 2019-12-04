@@ -10,4 +10,4 @@ while getopts p: OPT; do
 done
 
 DOCKER=/usr/local/bin/docker
-${DOCKER} run -d --rm -e PASSWORD=hotoku -v /Users/hotoku/sample/r:/home/rstudio -p ${PORT}:8787 hotoku/r
+${DOCKER} run -d --rm -e PASSWORD=hotoku -v /Users/hotoku/samples/r:/home/rstudio -p ${PORT}:8787 hotoku/r
