@@ -1,0 +1,15 @@
+```{r, include=FALSE}
+library(rstan)
+library(tidyverse)
+library(ggmcmc)
+
+rm(list=ls(all=T))
+source("~/utils.r")
+
+load("4.RData")
+```
+
+```{r}
+str(stan_fit)
+```
+
