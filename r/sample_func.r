@@ -20,3 +20,10 @@ plot(x, f3(x, 0.5, 3, 1, 0), ty="l")
 lines(x, f3(x, 0.5, 3, 0.3, 0), col=2)
 lines(x, f3(x, 0.5, 3, 3, 0), col=3)
 lines(x, f3(x, 0.5, 3, 3, 3), col=4)
+lines(x, f3(x, 0.5, 3, -1, 3), col=5)
+
+
+plot(x, f3(x, -1, -3, 1, 0), ty="l")
+
+
+plot(x, f3(x, -3, -1, 1, 0), ty="l")
