@@ -5,3 +5,4 @@
 *.gif
 kitematic/
 */__pycache__/
+.DS_Store
