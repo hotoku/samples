@@ -1,5 +1,9 @@
 ## 目標
-滑らかにaからbまで変化する関数を定義する
+
+* 滑らかにaからbまで変化する
+* x=0で1になる
+
+関数を定義する
 
 ```{r}
 f1 <- function(x){
@@ -70,4 +74,116 @@ x = log(y/(1-y))
 
 という関数になっているはず
 
+```{r}
+f1inv <- function(y){
+  log(y / (1 - y))
+}
+f4 <- function(x, a, b, slope){
+  x0 <- f1inv((1-a) / (b-a))
+  f3(x, a, b, slope, -x0)
+}
+```
 
+```{r}
+plot(x, f4(x, 0.1, 2, 1), ty="l")
+lines(x, f4(x, 0.1, 2, 2), col=2)
+lines(x, f4(x, 0.1, 2, 0.3), col=3)
+abline(h=1, lty=2)
+abline(v=0, lty=2)
+```
+
+微妙にずれてる気が・・
+
+```{r}
+f4(0, 0.1, 2, c(0.3, 1, 2))
+```
+
+ずれてる・・・
+
+もう一回、議論をたどる。
+
+`f3(x, a, b, slope, pos)` のposをいじることで、
+
+* f3(\\inf, a, b, slope, pos(a, b)) = b
+* f3(-\\inf, a, b, slope, pos(a, b)) = a
+* f3(0, a, b, slope, pos(a, b)) = 1
+
+を満たすようにしたい。
+
+```
+f3(x, a, b, slope, pos) = f2( slope*(x - pos), a, b)
+```
+
+である。f2の造り方から、1,2番目の条件は自動的に満たされる。 
+
+```
+f2( slope*(-pos(a, b)), a, b) = 1
+```
+
+を満たすような `pos(a, b)` を作ることができれば、条件を満たすことができる。
+
+```
+f2( slope*(-pos(a, b)), a, b) = 1
+(b-a) * f1(-slope*pos(a,b)) + a = 1
+f1(-slope*pos(a,b)) = (1-a) / (b-a)
+-slope*pos(a,b) = f1^{-1}( (1-a)/(b-a) )
+pos(a,b) = -f1^{-1}( (1-a)/(b-a) ) / slope
+```
+
+改めて定義すると。。
+
+```{r}
+f5 <- function(x, a, b, slope){
+  pos <- -f1inv( (1-a)/(b-a) ) / slope
+  f3(x, a, b, slope, pos)
+}
+```
+
+```{r}
+plot(x, f5(x, 0.1, 2, 1), ty="l")
+lines(x, f5(x, 0.1, 2, 2), col=2)
+lines(x, f5(x, 0.1, 2, 0.3), col=3)
+abline(h=1, lty=2)
+abline(v=0, lty=2)
+```
+
+
+これで問題なさそう
+
+
+a > bの場合は・・
+```{r}
+plot(x, f5(x, 2, 0.1, 1), ty="l")
+lines(x, f5(x, 2, 0.1, 2), col=2)
+lines(x, f5(x, 2, 0.1, 0.3), col=3)
+abline(h=1, lty=2)
+abline(v=0, lty=2)
+```
+
+a < 0の場合は・・
+```{r}
+plot(x, f5(x, -0.1, 2, 1), ty="l")
+lines(x, f5(x, -0.1, 2, 2), col=2)
+lines(x, f5(x, -0.1, 2, 0.3), col=3)
+abline(h=1, lty=2)
+abline(v=0, lty=2)
+```
+
+a, bから1までの距離が大きく違う場合
+```{r}
+plot(x, f5(x, 0.1, 20, 1), ty="l")
+lines(x, f5(x, 0.1, 20, 2), col=2)
+lines(x, f5(x, 0.1, 20, 0.3), col=3)
+abline(h=1, lty=2)
+abline(v=0, lty=2)
+```
+
+slopeとa, bを色々変えてみる
+
+```{R}
+plot(x, f5(x, -3, 5, 1), ty="l")
+lines(x, f5(x, -1, 3, 1), col=2)
+lines(x, f5(x, -1, 3, 2), col=3)
+```
+
+やっぱり0近傍で、a,bの幅を広げることとslopeを大きくすることの識別が困難になってる
