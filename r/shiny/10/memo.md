@@ -10,3 +10,9 @@ https://blog.rstudio.com/2018/06/26/shiny-1-1-0/
 
 当初の想像のような、1リクエストの中でのブロッキングへの対応は、reactiveの機能を使うのではないかと想像。その検証は、また別の機械に行う。
  
+
+```
+int main(int argc, char* argv[]){
+    return 0;
+}
+```
