@@ -2,39 +2,51 @@ import argparse
 
 
 class Command:
-    def register_subparser(self, subparsers):
-        pass
+    def __init__(self, subparsers):
+        self.parser = subparsers.add_parser(self.name,
+                                            help=self.__doc__)
+        self.register_argument()
+        self.parser.set_defaults(handler=self.handler)
 
-    def handler(self, args):
-        pass
+    def register_argument(self): pass
+
+    def handler(self, args): pass
 
 
 class CommandA(Command):
-    def register_subparser(self, subparsers):
-        parser = subparsers.add_parser("A", help="help of A")
-        parser.add_argument("-a",  action="store_true")
-        parser.set_defaults(handler=self.handler)
+    "command A"
+    name = "A"
+
+    def __init__(self, subparsers):
+        super(CommandA, self).__init__(subparsers)
+
+    def register_argument(self):
+        self.parser.add_argument("-a",  action="store_true")
 
     def handler(self, args):
         print(f"A: {args.a}")
 
 
 class CommandB(Command):
-    def register_subparser(self, subparsers):
-        parser = subparsers.add_parser("B", help="help of B")
-        parser.add_argument("-b",  action="store_true")
-        parser.set_defaults(handler=self.handler)
+    "command B"
+    name = "B"
+
+    def __init__(self, subparsers):
+        super(CommandB, self).__init__(subparsers)
+
+    def register_argument(self):
+        self.parser.add_argument("-b",  action="store_true")
 
     def handler(self, args):
         print(f"B: {args.b}")
 
 
-commands = [CommandA(), CommandB()]
+commands = [CommandA, CommandB]
 
 parser = argparse.ArgumentParser(description="sample")
 subparsers = parser.add_subparsers()
 for c in commands:
-    c.register_subparser(subparsers)
+    c(subparsers)
 
 args = parser.parse_args()
 if hasattr(args, "handler"):
