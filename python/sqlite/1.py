@@ -41,3 +41,15 @@ select * from x;
 
 for c in ret:
     print(f"{c['id']}, {c['val']}, {c['key']}")
+
+
+# 0行の場合には何が返ってくるのか
+ret = cur.execute("""
+select * from x where id = 1000;
+""")
+
+print(ret)
+
+# 答え：Cursorオブジェクト
+for r in ret:
+    print(r)
