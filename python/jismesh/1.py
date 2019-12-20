@@ -23,7 +23,7 @@ print(f"resolution={ju.to_meshlevel(code)}")
 # (1, 0) -- (1, 1)
 #  |            |
 # (0, 0) -- (0, 1)
-def to_latlng_dict(code):
+def to_lnglat_dict(code):
     sw = ju.to_meshpoint(code, 0, 0)
     se = ju.to_meshpoint(code, 0, 1)
     ne = ju.to_meshpoint(code, 1, 1)
@@ -31,7 +31,7 @@ def to_latlng_dict(code):
     return dict(sw=sw, se=se,
                 ne=ne, nw=nw)
 
-def to_latlng_list(code):
+def to_lnglat_list(code):
     sw = ju.to_meshpoint(code, 0, 0)
     se = ju.to_meshpoint(code, 0, 1)
     ne = ju.to_meshpoint(code, 1, 1)
@@ -39,43 +39,51 @@ def to_latlng_list(code):
     return [sw, se, ne, nw]
 
 
-print(to_latlng_dict(code))
+print(to_lnglat_dict(code))
 
 
 def around(code, pos):
     """
-    周辺のセルのコードを求めることを考える
-    (1,  -1)(1,  0)(1,  1)
-    (0,  -1)(0,  0)(0,  1)
-    (-1, -1)(-1, 0)(-1, 1)
-    に対して
-    (1.5,  -0.5)(1.5,  0.5)(1.5,  1.5)
-    (0.5,  -0.5)(0.5,  0.5)(0.5,  1.5)
-    (-0.5, -0.5)(-0.5, 0.5)(-0.5, 1.5)
-    を渡せば良い。つまり、それぞれの値に0.5を足して、to_meshpointに渡せば良さそう
+    pos[0]: 緯度方向の移動単位
+    pos[1]: 経度方向の移動単位
     """
+    
+    # (1,  -1)(1,  0)(1,  1)
+    # (0,  -1)(0,  0)(0,  1)
+    # (-1, -1)(-1, 0)(-1, 1)
+    # に対して
+    # (1.5,  -0.5)(1.5,  0.5)(1.5,  1.5)
+    # (0.5,  -0.5)(0.5,  0.5)(0.5,  1.5)
+    # (-0.5, -0.5)(-0.5, 0.5)(-0.5, 1.5)
+    # を渡せば良い。つまり、それぞれの値に0.5を足して、to_meshpointに渡せば良さそう
 
-    latlng = ju.to_meshpoint(code, pos[0] + 0.5, pos[1] + 0.5)
+    lnglat = ju.to_meshpoint(code, pos[0] + 0.5, pos[1] + 0.5)
     level = ju.to_meshlevel(code)
-    return ju.to_meshcode(*latlng, level)
+    return ju.to_meshcode(*lnglat, level)
 
 
 for dx, dy in itt.product([-1, 0, 1], [-1, 0, 1]):
-    print(to_latlng_dict(around(code, (dx, dy))))
+    print(to_lnglat_dict(around(code, (dx, dy))))
 
 
 
-def lnglat(points):
-    "(lat, lng)の配列を(lng, lat)の配列に変換する"
+def swap_list(points):
+    """
+    (lat, lng)の配列を(lng, lat)の配列に変換する
+    或いは
+    (lng, lat)の配列を(lat, lng)の配列に変換する
+    """
     return [(lng, lat) for (lat, lng) in points]
 
-def make_polygon(points):
-    points2 = points + [points[0]]
-    points3 = lnglat(points2)
-    return gj.Polygon([points3]) # 頂点の配列ではなく頂点の配列の配列を渡す
+def make_polygon(latlng_list):
+    print(f"make_polygon: {latlng_list}") 
+    lnglat_list = swap_list(latlng_list)
+    print(f"make_polygon-reversed: {lnglat_list}") 
+    lnglat_ring = lnglat_list + [lnglat_list[0]]
+    return gj.Polygon([lnglat_ring]) # 頂点の配列ではなく頂点の配列の配列を渡す
 
 polygons = [
-    make_polygon(to_latlng_list(around(code, (dy, dx))))
+    make_polygon(to_lnglat_list(around(code, (dy, dx))))
     for (dy, dx)
     in itt.product([-1,0,1], [-1,0,1])
 ]
@@ -85,6 +93,6 @@ fcol = gj.FeatureCollection(
         for (id, poly)
         in enumerate(polygons)
     ])
-fmap = folium.Map((lat, lng), zoom_start=20, width=800, height=400)
+fmap = folium.Map((lat, lng), zoom_start=15, width=800, height=400)
 folium.GeoJson(fcol, name="geojson").add_to(fmap)
 fmap.save("1.html")    
