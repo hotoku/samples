@@ -6,7 +6,11 @@ select * from unnest(
    {% if loop.index > 1 %} , {% endif %}
    struct(
      "{{ obj.name }}" as name,
-     "{{ obj.polygon }}" as polygon_str
+     jslibs.h3.ST_H3_POLYFILLFROMGEOG(
+       ST_GEOGFROMTEXT(
+         "{{ obj.polygon }}"
+       )
+     ) as polygon_str
    ) as feature         
 {% endfor %}
 ]
