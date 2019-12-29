@@ -61,3 +61,12 @@ smpl <- ggs(stan_fit, stan_include_auxiliar = TRUE)
 
 plot(dat$sales, ty="l")
 lines(colMeans(ex$s), col=2)
+
+
+ex2 <- rstan::extract(stan_fit, "s", inc_warmup=T)
+plot(ex2$s[1:10000,1], ty="l")
+for(i in 1:3){
+  lines(ex2$s[(1:10000)+i*5e4, 1], col=i+1)
+}
+
+# 5000サンプルで十分収束している

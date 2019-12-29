@@ -40,8 +40,8 @@ model <- compile(stan_code)
 
 log.info("sampling start")
 stan_fit <- sampling(model, verbose = TRUE,
-                     iter = 5e4, 
-                     warmup = 1e4, 
+                     iter = 5e3, 
+                     warmup = 1e3, 
                      chains = 4,
                      cores = 4,
                      data = list(
@@ -74,3 +74,5 @@ lines(colMeans(ex$mu), col=2)
 
 # 5,000サンプルでは全然収束してない
 
+ex2 <- rstan::extract(stan_fit, "s", inc_warmup=T)
+plot(ex2$s[1:4000,1], ty="l")
