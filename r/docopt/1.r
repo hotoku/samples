@@ -13,6 +13,7 @@ docopt(doc, "--opt1 XXX a b")
 
 docopt(doc, "XXX YYY") # エラー
 # opt1がオプショナルになってない..
+# 2.rmdで解決した
 
 # 実際の引数をparseするときはこっち
 # docopt(doc) 
