@@ -1,0 +1,23 @@
+---
+title: "正規表現"
+output: html_notebook
+---
+
+```{r, include=FALSE}
+library(tidyverse)
+```
+
+
+```{r}
+path <- "a/b/c"
+str_match(path, "(.+)/([^/]+)")
+```
+
+- 1列目：マッチしたやつ全体
+- 2, 3列目：各グループの値
+
+```{r}
+path <- "a/b/c/d"
+str_match(path, "(.+)/([^/]+)")
+```
+
