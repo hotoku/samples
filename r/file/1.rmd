@@ -1,0 +1,26 @@
+---
+title: "file open"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r}
+x <- 1
+f <- file("/tmp/x", open = "wb")
+saveRDS(x, f)
+```
+
+```{r}
+y <- readRDS("/tmp/x")
+print(y)
+```
+
+これではエラー。ファイルを閉じる必要がある
+
+```{r}
+close(f)
+z <- readRDS("/tmp/x")
+print(z)
+```
+
