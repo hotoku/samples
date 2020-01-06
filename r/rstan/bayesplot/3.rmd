@@ -1,0 +1,87 @@
+---
+title: "tidybayes"
+output:
+  html_document:
+    df_print: paged
+---
+
+
+```{r}
+library(tidyverse)
+library(rstan)
+library(tidybayes)
+fit <- readRDS("1_fit.rds")
+```
+
+## tidy
+
+```{r}
+fit_tidy <- fit %>% spread_draws(tau, eta[r], theta[r], lp__)
+fit_tidy %>% head
+```
+
+配列のパラメータは、`eta[r]`などと指定する。
+
+```{r}
+fit_tidy %>% 
+  ggplot(aes(theta, as.factor(r))) +
+  geom_halfeyeh(point_interval=median_hdci, # 中央値で点推定
+                .width=c(.66,0.96)) # 66%確信区間・96%信頼区間（図の太線・細線）
+```
+
+median_hdciの他に、mean_hdci, mode_hdciもある。
+
+これを値で取り出すには `point_interval`を使う
+```{r}
+point_interval(fit_tidy, .width=0.96, .point=median, .interval=hdci)
+```
+
+## itervalのバリエーション
+`?point_interval` の内容をまとめる。 point_intervalは、確率分布からのサンプル系列から点推定、区間推定の結果を計算する。
+.iterval引数の値としてqi, hdi, hdciが選べる
+
+- qi：いわゆる普通のパーセンタイル
+- hdi：分布が多峰型の場合に、複数の区間を返すかもしれない。
+- hdci：分布が多峰型でも、単一の区間を返す。
+
+多峰型のサンプルを作って実験してみる
+
+```{r}
+x <- c(rnorm(1e3), rnorm(1e3, mean=5))
+x %>% tibble(x=.) %>% ggplot(aes(x)) + geom_histogram()
+```
+
+### qi
+```{r}
+point_interval(x, .point = median, .interval = qi, .width = 0.95)
+```
+```{r}
+quantile(x, c(0.025, 0.5, 0.975))
+```
+qiは、パーセンタールで間違いなさそう
+
+
+### hdi
+```{r}
+point_interval(x, .point = median, .interval = hdi, .width = 0.95)
+```
+hdiの場合は、複数の区間が得られている。MCMCの結果を使う時には不都合かもね
+
+### hdci
+```{r}
+point_interval(x, .point = median, .interval = hdci, .width = 0.95)
+```
+hdciの場合は、区間は1個だけ。
+
+qiの区間とhdciの区間は異なる。medianの値は、どの関数を使っても同じ。
+
+モードで実験してみる。
+
+```{r}
+rbind(
+  point_interval(x, .point = Mode, .interval = qi),
+  point_interval(x, .point = Mode, .interval = hdi),
+  point_interval(x, .point = Mode, .interval = hdci))
+```
+
+モードでも点推定の結果は全部同じ。
