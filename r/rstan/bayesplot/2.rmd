@@ -1,0 +1,50 @@
+---
+title: "bayesplot"
+output: html_notebook
+---
+
+# ロード
+```{r include=FALSE}
+library(rstan)
+library(bayesplot)
+fit <- readRDS("1_fit.rds")
+```
+
+
+
+# 検証
+
+## Rhat
+```{r}
+rhat(fit)
+```
+これをプロット
+```{r}
+mcmc_rhat_hist(rhat(fit))
+```
+
+収束してそう。
+
+## traceplotと事後分布
+```{r}
+as.array(fit) %>% mcmc_trace(pars="mu")
+```
+
+```{r}
+as.array(fit) %>% mcmc_combo(pars="mu")
+```
+
+## 自己相関
+
+```{r}
+as.array(fit) %>% mcmc_acf(par="mu")
+as.array(fit) %>% mcmc_acf_bar(par="mu")
+```
+
+## 実行サンプルサイズ
+
+```{r}
+neff_ratio(fit)
+mcmc_neff_hist(neff_ratio(fit))
+```
+
