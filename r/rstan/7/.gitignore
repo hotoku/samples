@@ -2,3 +2,7 @@
 *.json
 *.cache
 *.csv
+*.aux
+*.dvi
+*.log
+*.bak

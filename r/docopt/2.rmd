@@ -1,0 +1,40 @@
+---
+title: "docopt 2"
+output: html_notebook
+---
+
+```{r include=F}
+library(docopt)
+```
+
+
+```{r}
+doc <- "Usage: cmd ARG1"
+docopt(doc, "arg1")
+```
+
+```{r}
+docopt(doc, "")
+```
+
+位置引数がないとエラー
+
+```{r}
+doc2 <- "Usage: cmd [ARG1]"
+docopt(doc2, "")
+docopt(doc2, "X")
+```
+
+オプショナルな位置引数
+
+```{r}
+doc3 <- "Usage: cmd [--opt1 OPT1]"
+docopt(doc3, "--opt1 X")
+```
+上の書き方だと、opt1というオプションフラグと、OPT1というオプション位置引数と解釈されているぽい
+
+```{r}
+doc4 <- "Usage: cmd [--opt1=OPT1]"
+docopt(doc4, "--opt1=X")
+```
+名前付きのオプション引数は、=をつけて宣言する必要あり

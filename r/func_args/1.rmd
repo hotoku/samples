@@ -1,0 +1,114 @@
+---
+title: "関数の引数名を実行時に取得"
+output: html_notebook
+---
+
+[参考](http://hiratake55.hatenadiary.jp/entry/20100201/1264994611)
+
+上のページの
+
+```
+key <- as.list(substitute(list(...)))[-1L]
+```
+の意味が分からないので確認する
+
+
+```{r}
+f1 <- function(...){
+  v1 <- list(...)
+  browser()
+}
+f1(x=1)
+```
+v1には、list(x=1)が入っている
+
+```{r}
+f2 <- function(...){
+  v1 <- list(...)
+  v2 <- substitute(v1)
+  browser()
+}
+f2(x=1, y=1:10)
+```
+v1, v2とも、同じリスト list(x=1, y=1:10)。substituteのhelpを読んでみると、
+
+> substitute returns the parse tree for the (unevaluated) expression expr, substituting any variables bound in env. 
+
+とある。もう少し、挙動がわかりそうな例を考える
+
+
+```{r}
+f3 <- function(...){
+  v1 <- list(...)
+  v2 <- substitute(v1)
+  v3 <- substitute(list(...))
+  browser()  
+}
+x <- 1
+y <- 1:10
+f3(x, y)
+```
+
+```
+Called from: f3(x, y)
+Browse[1]> v3
+list(x, y)
+Browse[1]> as.list(v3)
+[[1]]
+list
+
+[[2]]
+x
+
+[[3]]
+y
+
+Browse[1]> as.list(v3)[-1]
+[[1]]
+x
+
+[[2]]
+y
+
+Browse[1]> class(v3)
+[1] "call"
+Browse[1]> Q
+```
+
+- `substitute(list(...))` で、リストをパースした式となる
+- 上をさらに `as.list` に入れることで、文字列のリストを作成する
+
+という手順のよう。
+
+RstudioのEnvironmentタブでは、v1, v2はDataだが、v3はValuesという値として表示されている。環境の中には、DataとValuesがある・・？
+
+引数が関数呼び出しの時の挙動を確認してみる
+
+```{r}
+f4 <- function(...){
+  v1 <- list(...)
+  v2 <- substitute(v1)
+  v3 <- substitute(list(...))
+  v4 <- as.list(v3)
+  browser()
+}
+x <- 1
+y <- 1:10
+f4(x, y, sum(1:10))
+```
+```
+Browse[1]> v4
+[[1]]
+list
+
+[[2]]
+x
+
+[[3]]
+y
+
+[[4]]
+sum(1:10)
+```
+
+こんな感じ。parse treeの表現方法の詳細については、将来の宿題

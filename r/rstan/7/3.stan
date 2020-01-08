@@ -1,26 +1,27 @@
-// 普通の方法でサンプリング
+// 主成分分解してサンプリング
 
 data {
   int N;
   vector[N] Y;
-  vector[N] X;
+  vector[N] X; 
+  matrix[N,N] Sl;
 }
 
 parameters {
-  vector[N] s;
+  vector[N] eta;
   real c;
   real<lower=0> sigma1;
   real<lower=0> sigma2;
 }
 
 transformed parameters {
+  vector[N] s;
   vector[N] mu;
+  s = Sl * eta;
   mu = s + c * X;
 }
 
 model {
-  for(i in 3:N){
-    s[i] ~ normal(2*s[i-1] - s[i-2], sigma1);
-  }
+  eta ~ normal(0, sigma1);
   Y ~ normal(mu, sigma2);
 }
