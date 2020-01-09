@@ -1,0 +1,20 @@
+```{r}
+library(tidyverse)
+dat <- tibble(x=1:10, y=11:20, z=21:30)
+dat
+```
+
+gather: ... 引数に与えられた列を集めて１列にする。それらの列名画、新しいkey列の値となる。
+
+```{r}
+dat2 <- gather(dat, key="key", value="value", y, z)
+dat2
+```
+
+spread: value列の値を、key列の値をの新しい列名の値とする
+
+```{r}
+dat3 <- spread(dat2, key, value)
+dat3
+```
+
