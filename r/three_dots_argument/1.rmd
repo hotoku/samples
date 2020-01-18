@@ -1,0 +1,35 @@
+```{r}
+f <- function(...){
+  args <- list(...) 
+  args$x + 1
+}
+
+f(x=1)
+```
+
+`list(...)`で、リストにできる
+
+```{r}
+f2 <- function(...){
+  f3(y = 2, ...)
+}
+f3 <- function(...){
+  args <- list(...)
+  print(args$x)
+  print(args$y)
+}
+
+f2(x=1)
+```
+
+```{r}
+f4 <- function(...){
+  args <- list(...)
+  print(args)
+}
+f4(10)
+f4(10, x=100)
+```
+
+名前なしの引数も取れる
+
