@@ -1,0 +1,52 @@
+```{r}
+library(modulr)
+```
+
+関数の実装を定義
+
+```{r}
+"func1" %provides% {
+  function() "func1"
+}
+
+"func2" %provides% {
+  function() "func2"
+}
+```
+
+依存性の設定を定義
+
+```{r}
+dep1 <- list(
+  f="func1"
+)
+
+dep2 <- list(
+  f="func2"
+)
+```
+
+依存性の設定から実装を取得
+
+```{r}
+get_object <- function(dep){
+  "ret" %requires% dep %provides% {
+    f
+  }
+  make("ret")
+}
+```
+
+設定を使って挙動を変更
+```{r}
+doit <- get_object(dep1)
+doit()
+```
+```{r}
+doit <- get_object(dep2)
+doit()
+```
+
+
+
+
