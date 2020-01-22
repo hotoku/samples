@@ -8,8 +8,9 @@ from datetime import datetime
 
 
 async def f(i):
+    print(f"begin {i}")
     await asyncio.sleep(1)
-    print(i)
+    print(f"end {i}")
 
 
 async def main():
