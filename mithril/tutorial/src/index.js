@@ -1,3 +1,5 @@
 var m = require("mithril")
 
-m.render(document.body, "hello world")
+var MyComponent = require("./mycomponet")
+
+m.mount(document.body, MyComponent)
