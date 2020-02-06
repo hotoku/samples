@@ -4,4 +4,5 @@ subdirs := a b
 
 all: $(subdirs)
 $(subdirs):
+	@echo building $@
 	$(MAKE) -C $@ # -Cは、コマンドを打つ前にそのディレクトリに移動する、という意味
