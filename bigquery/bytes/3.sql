@@ -15,3 +15,4 @@ select
 -- +------+------+-------+-----+-----+
 
 -- BYTES→INTの変換方法：to_hexでhexiadecimalにして、intにcast
+-- hexadeximalで31をintに変換したら49になるのでは・・？？
