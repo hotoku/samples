@@ -1,0 +1,4 @@
+model {
+  Y ~ dbin(0.5, 8)
+  P2 <- step(2.5-Y) # i.e., is Y <= 2?
+}

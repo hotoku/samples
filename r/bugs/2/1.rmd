@@ -1,0 +1,49 @@
+---
+title: "bugs 2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(BRugs)
+library(MASS)
+```
+
+
+## 準備
+- モデルファイルをチェック
+- コンパイル
+- 初期値の生成
+- サンプルを保存するパラメータを指定
+
+```{r}
+model_file <- "bugs/2/model.txt"
+modelCheck(model_file)
+modelCompile()
+modelGenInits()
+samplesSet(c("Y", "P2"))
+```
+
+## サンプリング
+
+サンプル数を指定して実行
+
+```{r}
+n_iter <- 1e4
+modelUpdate(n_iter)
+```
+
+## サンプルをチェック
+
+```{r}
+Y <- samplesSample("Y")
+P2 <- samplesSample("P2")
+truehist(Y)
+truehist(P2)
+```
+
+```{r}
+length(Y)
+```
+
+burninの期間も含まれている
