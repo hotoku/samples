@@ -3,7 +3,7 @@ library(stringr)
 
 model_file <- "bugs/3/model.txt"
 dat <- list(
-  z = 2,
+  z = 0,
   tau = 1e2
 )  
 n_chain = 1

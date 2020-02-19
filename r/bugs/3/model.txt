@@ -1,6 +1,6 @@
 model {
-  z ~ dnorm(theta, tau)
-  theta <- x + y
   x ~ dnorm(0, 1)
-  y ~ dnorm(0, 1)
+  y ~ dnorm(0, 1)  
+  theta <- x + y  
+  z ~ dnorm(theta, tau)
 }
