@@ -8,9 +8,11 @@ class Command:
         self.register_argument()
         self.parser.set_defaults(handler=self.handler)
 
-    def register_argument(self): pass
+    def register_argument(self):
+        raise NotImplementedError(f"{type(self)}: register_argument")
 
-    def handler(self, args): pass
+    def handler(self, args):
+        raise NotImplementedError(f"{type(self)}: handler")
 
 
 class CommandA(Command):
