@@ -4,8 +4,9 @@
 import subprocess as sp
 from io import StringIO
 
-command = ["ls", "-l"]
-r = sp.run(command, stdout=sp.PIPE)
-print("decondig..")
-s = r.stdout.decode("utf-8")  # バイト列は.decodeで文字列に変換できる
+command = ["python", "run.py"]
+r = sp.run(command, stdout=sp.PIPE, stderr=sp.PIPE)
+s = r.stdout.decode("utf-8")
+print(s)
+s = r.stderr.decode("utf-8")
 print(s)
