@@ -5,7 +5,7 @@
 
 import unittest
 
-from cookiecutter_sample import cookiecutter_sample
+from cookiecutter_sample import cookiecutter_sample as cs
 
 
 class TestCookiecutter_sample(unittest.TestCase):
@@ -17,5 +17,5 @@ class TestCookiecutter_sample(unittest.TestCase):
     def tearDown(self):
         """Tear down test fixtures, if any."""
 
-    def test_000_something(self):
-        """Test something."""
+    def test_doit(self):
+        self.assertEqual(1, cs.doit(None))

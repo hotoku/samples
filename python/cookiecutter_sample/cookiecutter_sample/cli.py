@@ -1,6 +1,7 @@
 """Console script for cookiecutter_sample."""
 import argparse
 import sys
+from cookiecutter_sample import doit
 
 
 def main():
@@ -9,9 +10,8 @@ def main():
     parser.add_argument('_', nargs='*')
     args = parser.parse_args()
 
-    print("Arguments: " + str(args._))
-    print("Replace this message by putting your code into "
-          "cookiecutter_sample.cli.main")
+    doit(args)
+
     return 0
 
 
