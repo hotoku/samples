@@ -18,4 +18,4 @@ class TestCookiecutter_sample(unittest.TestCase):
         """Tear down test fixtures, if any."""
 
     def test_doit(self):
-        self.assertEqual(1, cs.doit(None))
+        self.assertEqual(2, cs.doit(None))

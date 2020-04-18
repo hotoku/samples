@@ -1,5 +1,5 @@
-def doit(args):
+def doit(args=None):
     if args is None:
-        return 1
+        return 2
     else:
         print(args._)
