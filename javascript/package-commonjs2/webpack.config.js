@@ -6,7 +6,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'sample.js',
     library: "sample",
-    libraryTarget: 'commonjs2',
+    libraryTarget: 'var',
   },
   mode: 'production',
 };
