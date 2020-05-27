@@ -6,7 +6,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'sample.js',
     library: "sample",
-    libraryTarget: 'var',
+    libraryTarget: 'commonjs2',
   },
   mode: 'production',
 };
@@ -21,4 +21,8 @@ module.exports = {
   - commonjs2…module.exportsに代入する（output.libraryは影響しない）
   - amd…define()で登録する
   - umd…exports、module.exports、define()、thisのどれかを使う
+  
+  BigQueryのUDFの中で使うときには、`var`を選んでおく
+  cf: https://medium.com/swlh/how-to-package-a-javascript-library-for-use-in-bigquery-2bf91061f66f
+      https://cloud.google.com/bigquery/docs/reference/standard-sql/user-defined-functions?hl=ja#including-javascript-libraries
 */
