@@ -27,4 +27,4 @@ describe('test of util', () => {
       expect(v1).not.toBe(v2)
     })
   })
-})
+)}
