@@ -15,4 +15,16 @@ describe('test of util', () => {
       expect(ret).toEqual(9)
     })
   })
+  describe('reference', () => {
+    it('should be same value but different reference', () => {
+      const v1 = {
+        x: 1
+      }
+      const v2 = {
+        x: 1
+      }
+      expect(v1).toEqual(v2)
+      expect(v1).not.toBe(v2)
+    })
+  })
 })
