@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "mocha": "^7.2.0",
+    "expect": "^26.0.1"
+  }
+}
