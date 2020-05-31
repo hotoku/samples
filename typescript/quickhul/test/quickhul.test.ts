@@ -10,10 +10,34 @@ function nearly_equal(x: number, y: number): boolean{
 }
 
 describe("Line", () => {
+    it("should be 0", () => {
+        const p1 = new Point(1, 0);
+        const p2 = new Point(0, 1);
+        const p3 = new Point(0, 1);
+        const l = new Line(p1, p2);
+        const ret = nearly_equal(
+            l.distance(p3),
+            0
+        );
+        expect(ret).to.equal(true);
+    });
+
     it("should be 1", () => {
         const p1 = new Point(0, 0);
         const p2 = new Point(1, 0);
         const p3 = new Point(1, 1);
+        const l = new Line(p1, p2);
+        const ret = nearly_equal(
+            l.distance(p3),
+            1
+        );
+        expect(ret).to.equal(true);
+    });
+
+    it("should be 1", () => {
+        const p1 = new Point(100, 0);
+        const p2 = new Point(101, 0);
+        const p3 = new Point(101, 1);
         const l = new Line(p1, p2);
         const ret = nearly_equal(
             l.distance(p3),
@@ -81,16 +105,18 @@ describe("Line", () => {
         );
         expect(ret).to.equal(true);
     });
+})
 
+describe("quickhul", () => {
     it("should return 4 points", () => {
         const ps = [
-            new Point(0, 0),
-            new Point(0, 1),
-            new Point(1, 1),
+            new Point(-1, 0),
+            new Point(0, -1),
             new Point(1, 0),
-            new Point(0.5, 0.5),
+            new Point(0, 1),
+            new Point(0, 0),
         ]
         const ret = quickhul(ps);
-        expect(ps.length).to.equal(4);
+        expect(ret.length).to.equal(4);
     })
 });
