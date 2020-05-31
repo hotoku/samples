@@ -1,0 +1,12 @@
+{
+  "name": "quickhul",
+  "version": "1.0.0",
+  "description": "calculate convex hul",
+  "main": "quickhul.ts",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "test": "test"
+  },
+  "author": "Yasunori Horikoshi",
+  "license": "ISC"
+}
