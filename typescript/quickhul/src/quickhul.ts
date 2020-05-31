@@ -57,11 +57,14 @@ export class Line{
     }
 
     distance(p: Point): number{
-        // Returns signed distance.
-        // Distance is positive if p is on the right of line(p1 -> p2) and negative if right.
-        const q = this.p2.minus(this.p1).normalize();
-        const theta = Math.abs(Math.acos(q.x)) * (q.y > 0 ? 1 : -1);
-        return p.minus(this.p1).rotate(-theta).y;
+        /*
+          Returns signed distance.
+          If standing p1, looking at p2 and p is left of the line, the distance is positive
+        */
+        const a = this.p2.y - this.p1.y;
+        const b = this.p1.x - this.p2.x;
+        const c = this.p1.y * (this.p2.x - this.p1.x) - this.p1.x * (this.p2.y - this.p1.y);
+        return -(a * p.x + b * p.y + c) / Math.sqrt(a*a + b*b);
     }
 
     is_left(p: Point): boolean{
