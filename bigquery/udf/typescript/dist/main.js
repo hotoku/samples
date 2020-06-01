@@ -1,3 +1,4 @@
+var main =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -94,7 +95,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"f\", function() { return f; });\nfunction f(n) {\n    return n * 2;\n}\n\n\n//# sourceURL=webpack:///./src/main.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"f\", function() { return f; });\nfunction f(n) {\n    return n * 2;\n}\n\n\n//# sourceURL=webpack://main/./src/main.ts?");
 
 /***/ })
 
