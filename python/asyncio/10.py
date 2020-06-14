@@ -15,7 +15,8 @@ def g(s, t):
     return s + t
 
 
-EX = ThreadPoolExecutor(max_workers=2)
+EX = ThreadPoolExecutor(max_workers=2)  # これだと3秒で終わる
+# EX = ThreadPoolExecutor(max_workers=1) # これだと6秒かかる
 
 
 async def in_thread(func, *args):
