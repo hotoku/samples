@@ -7,3 +7,5 @@ fuga
 
 po = subprocess.Popen("cat", stdin=subprocess.PIPE, text=True)
 po.communicate(input=sin.read())
+
+print(po.pid)
