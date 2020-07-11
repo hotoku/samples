@@ -6,6 +6,6 @@
 import scrapy
 
 
-class HeadlineItem(scrapy.Item):
+class Headline(scrapy.Item):
     title = scrapy.Field()
     body = scrapy.Field()

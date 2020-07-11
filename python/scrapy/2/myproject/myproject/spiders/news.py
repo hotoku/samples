@@ -1,4 +1,5 @@
 import scrapy
+from myproject.items import Headline
 
 
 class NewsSpider(scrapy.Spider):
@@ -7,4 +8,11 @@ class NewsSpider(scrapy.Spider):
     start_urls = ['http://news.yahoo.co.jp/']
 
     def parse(self, response):
-        print(response.css("ul.topicsList_main a::attr('href')").getall())
+        for url in response.css("ul.topicsList_main a::attr('href')").re(r"/pickup/\d+$"):
+            yield response.follow(url, self.parse_topics)
+
+    def parse_topics(self, response):
+        item = Headline()
+        item["title"] = response.xpath("//p[contains(@class, 'pickupMain_articleTitle')]/text()").get()
+        item["body"] = response.xpath("//p[contains(@class, 'pickupMain_articleSummary')]/text()").get()
+        yield item
