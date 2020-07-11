@@ -7,4 +7,4 @@ class NewsSpider(scrapy.Spider):
     start_urls = ['http://news.yahoo.co.jp/']
 
     def parse(self, response):
-        pass
+        print(response.css("ul.topicsList_main a::attr('href')").getall())
