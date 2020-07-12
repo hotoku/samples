@@ -1,4 +1,5 @@
 import scrapy
+import re
 
 
 class CovidpdfSpider(scrapy.Spider):
@@ -7,4 +8,9 @@ class CovidpdfSpider(scrapy.Spider):
     start_urls = ['http://www.city.akiruno.tokyo.jp/0000010831.html']
 
     def parse(self, response):
-        yield dict(file_urls=response.xpath("//li//a@href").re(r".+pdf$"))
+        urls = [
+            re.sub("^./", "http://www.city.akiruno.tokyo.jp/", s)
+            for s in
+            response.xpath("//li//a/@href").re(r".+pdf$")
+        ]
+        yield dict(file_urls=urls)
