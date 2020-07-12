@@ -62,9 +62,9 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
-#    'covid_pdf.pipelines.CovidPdfPipeline': 300,
-# }
+ITEM_PIPELINES = {
+    'covid_pdf.pipelines.CovidPdfPipeline': 1,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -90,6 +90,3 @@ DOWNLOAD_DELAY = 1
 FEED_EXPORT_ENCODING = 'utf-8'
 
 FILES_STORE = "pdf"
-ITEM_PIPELINES = {
-    "scrapy.pipelines.files.FilesPipeline": 1
-}
