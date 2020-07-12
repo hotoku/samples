@@ -1,5 +1,12 @@
 PROJ_NAME=covid_pdf
 
+.PHONY: run init
+run:
+	scrapy crawl CovidPdf
+
+
+init: $(PROJ_NAME)/spiders/CovidPdf.py
+
 $(PROJ_NAME)/spiders/CovidPdf.py: scrapy.cfg
 	scrapy genspider CovidPdf www.city.akiruno.tokyo.jp
 
