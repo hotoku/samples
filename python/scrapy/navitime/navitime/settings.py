@@ -1,3 +1,5 @@
+import logging
+
 # Scrapy settings for navitime project
 #
 # For simplicity, this file contains only settings considered important or
@@ -88,3 +90,6 @@ AUTOTHROTTLE_TARGET_CONCURRENCY = 3.0
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 DOWNLOAD_DELAY = 1
 FEED_EXPORT_ENCODING = 'utf-8'
+
+LOG_FILE = "log.txt"
+LOG_LEVEL = logging.DEBUG

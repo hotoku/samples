@@ -1,4 +1,5 @@
 import sys
+import logging
 
 
 class NavitimePipeline:
@@ -12,9 +13,9 @@ class CountPoiPipeline:
         self.count = 0
 
     def __del__(self):
-        print(self.count)
+        logging.info(f"number of poi's = {self.count}")
 
     def process_item(self, item, spider):
         self.count += item["count"]
-        print(item["category_id"], item["prefecture"], item["count"], self.count)
+        logging.debug(f'{item["category_id"]}, {item["prefecture"]}, {item["count"]}, {self.count}')
         return item
