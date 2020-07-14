@@ -3,7 +3,7 @@ from pymongo import MongoClient
 client = MongoClient("localhost", 27017)
 db = client.myNewDatabase
 collection = db.myCollection
-
+collection.delete_many({})
 
 collection.insert_one(dict(
     name="東京スカイツリー",
