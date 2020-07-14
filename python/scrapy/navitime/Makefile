@@ -1,6 +1,6 @@
 PROJ_NAME=navitime
 CLASS_NAME=Navitime
-DOMAIN=https://www.navitime.co.jp
+DOMAIN=www.navitime.co.jp
 
 
 .PHONY: run init
