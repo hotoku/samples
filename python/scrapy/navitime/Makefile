@@ -11,7 +11,7 @@ run:
 init: $(PROJ_NAME)/spiders/$(CLASS_NAME).py
 
 $(PROJ_NAME)/spiders/$(CLASS_NAME).py: scrapy.cfg
-	scrapy genspider $(CLASS_NAME) $(NAVITIME)
+	scrapy genspider $(CLASS_NAME) $(DOMAIN)
 
 scrapy.cfg:
 	scrapy startproject $(PROJ_NAME) .
