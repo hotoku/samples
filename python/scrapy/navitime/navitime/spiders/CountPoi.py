@@ -11,8 +11,8 @@ class CountpoiSpider(CrawlSpider):
 
     rules = [
         Rule(
-            LinkExtractor(allow=r"^https://www.navitime.co.jp/category/[0-9]+/$"),
-            # LinkExtractor(allow=r"^https://www.navitime.co.jp/category/0516/$"),
+            # LinkExtractor(allow=r"^https://www.navitime.co.jp/category/[0-9]+/$"),
+            LinkExtractor(allow=r"^https://www.navitime.co.jp/category/0213/$"),
             callback="parse_category")
     ]
 
