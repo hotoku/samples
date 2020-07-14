@@ -1,5 +1,6 @@
 import sys
 import logging
+from pymongo import MongoClient
 
 
 class NavitimePipeline:
@@ -18,4 +19,19 @@ class CountPoiPipeline:
     def process_item(self, item, spider):
         self.count += item["count"]
         logging.debug(f'{item["category_id"]}, {item["prefecture"]}, {item["count"]}, {self.count}')
+        return item
+
+
+class MongoPipeline:
+    def open_spider(self, spider):
+        self.client = MongoClient()
+        self.db = self.client.navitime
+        self.collection = self.db.items
+
+    def close_spider(self, spider):
+        logging.info("closing mongo")
+        self.client.close()
+
+    def process_item(self, item, spider):
+        self.collection.insert_one(dict(item))
         return item
