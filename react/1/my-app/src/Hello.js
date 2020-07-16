@@ -1,21 +1,20 @@
 import React from 'react';
 import './App.css';
 
+class Hello extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { msg: 'Hello!' };
+  }
 
-
-function Hello(props) {
-  const users = [
-    { name: "Tanaka", age: 26 },
-    { name: "Suzuki", age: 32 },
-    { name: "Yamada", age: 43 }
-  ];
-  const userList = users.map(
-    (user, index) =>
-      <li key={index}>{user.name} (Age: {user.age})</li>
-  );
-  return (
-    <ul>{userList}</ul>
-  );
+  render() {
+    return (
+      <div>
+        <h1>{this.state.msg}</h1>
+        <button onClick={() => this.setState({msg: 'Bye!'})}>Click</button>
+      </div>
+    );
+  }
 }
 
 
