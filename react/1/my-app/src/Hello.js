@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 
-import { BrowserRouter, Link, Route } from "react-router-dom";
+import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 
 function HelloA() {
   return <h1>HelloA</h1>;
@@ -9,6 +9,10 @@ function HelloA() {
 
 function HelloB() {
   return <h1>HelloB</h1>;
+}
+
+function Home() {
+  return <h1>Home</h1>;
 }
 
 class Hello extends React.Component {
@@ -24,8 +28,11 @@ class Hello extends React.Component {
               <Link to="/hello-b">HelloB</Link>
             </li>
           </ul>
-          <Route path="/hello-a" component={HelloA} />
-          <Route path="/hello-b" component={HelloB} />
+          <Switch>
+            <Route path="/hello-a" component={HelloA} />
+            <Route path="/hello-b" component={HelloB} />
+            <Route path="*" component={Home} />
+          </Switch>
         </div>
       </BrowserRouter>
     );
