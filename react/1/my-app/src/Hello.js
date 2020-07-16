@@ -1,22 +1,20 @@
 import React from 'react';
 import './App.css';
 
-const msg = "Hello";
 
 
 function Hello(props) {
+  const users = [
+    { name: "Tanaka", age: 26 },
+    { name: "Suzuki", age: 32 },
+    { name: "Yamada", age: 43 }
+  ];
+  const userList = users.map(
+    (user, index) =>
+      <li key={index}>{user.name} (Age: {user.age})</li>
+  );
   return (
-    <div>
-      <h1 className="hello" style={{color:'red', fontSize:'20pt'}}>
-        {msg} {props.name}!
-      </h1>
-      <button onClick={(e) => {
-        console.log("click", this);
-        console.log(e, this);
-      }}>
-        OK
-      </button>
-    </div>
+    <ul>{userList}</ul>
   );
 }
 
