@@ -1,34 +1,33 @@
 import React from "react";
 import "./App.css";
 
+import { BrowserRouter, Link, Route } from "react-router-dom";
+
+function HelloA() {
+  return <h1>HelloA</h1>;
+}
+
+function HelloB() {
+  return <h1>HelloB</h1>;
+}
+
 class Hello extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      users: [
-        { name: "Tanaka", age: 26 },
-        { name: "Suzuki", age: 32 },
-      ],
-    };
-  }
-
-  changeState() {
-    let users = this.state.users;
-    users.push({ name: "Yamada", age: 43 });
-    this.setState({ users: users });
-  }
-
   render() {
-    let userList = this.state.users.map((user, index) => (
-      <li key={index}>
-        {user.name} (Age: {user.age})
-      </li>
-    ));
     return (
-      <div>
-        <ul>{userList}</ul>
-        <button onClick={() => this.changeState()}>Click</button>
-      </div>
+      <BrowserRouter>
+        <div>
+          <ul>
+            <li>
+              <Link to="/hello-a">HelloA</Link>
+            </li>
+            <li>
+              <Link to="/hello-b">HelloB</Link>
+            </li>
+          </ul>
+          <Route path="/hello-a" component={HelloA} />
+          <Route path="/hello-b" component={HelloB} />
+        </div>
+      </BrowserRouter>
     );
   }
 }
