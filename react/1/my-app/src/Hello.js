@@ -6,9 +6,17 @@ const msg = "Hello";
 
 function Hello(props) {
   return (
-    <h1 className="hello" style={{color:'red', fontSize:'20pt'}}>
-      {msg} {props.name}!
-    </h1>
+    <div>
+      <h1 className="hello" style={{color:'red', fontSize:'20pt'}}>
+        {msg} {props.name}!
+      </h1>
+      <button onClick={(e) => {
+        console.log("click", this);
+        console.log(e, this);
+      }}>
+        OK
+      </button>
+    </div>
   );
 }
 
