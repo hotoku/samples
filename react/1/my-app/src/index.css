@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+.header {
+  background-color: #000;
+  color: #fff;
+}
+.menu {
+  background-color: #ddd;
+}
+.menu li {
+  display: inline-block;
+  margin: 0 4px;
+}
+.main {
+  padding: 4px;
+}
+table {
+  border-collapse: collapse;
+  margin: 4px 0;
+}
+table th,
+table td {
+  padding: 4px;
+  border: 1px solid #888;
+}
+table th {
+  background-color: #ddd;
+}
+input[type="text"] {
+  width: 320px;
+}
+button {
+  min-width: 120px;
+  margin-right: 4px;
+}
+a:link,
+a:visited {
+  color: #000;
+}
