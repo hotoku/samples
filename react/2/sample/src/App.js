@@ -4,14 +4,36 @@ import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 
 import "./App.css";
 
+const Line = () => {
+  return (
+    <hr
+      style={{
+        color: "black",
+        backgroundColor: "black",
+        height: 1,
+      }}
+    />
+  );
+};
+
 class App1 extends React.Component {
   render() {
-    return <h1> {this.props.name}</h1>;
+    return (
+      <div>
+        <Line />
+        <h1> {this.props.name}</h1>
+      </div>
+    );
   }
 }
 
 function App2(props) {
-  return <h1> {props.name} </h1>;
+  return (
+    <div>
+      <Line />
+      <h1> {props.name} </h1>
+    </div>
+  );
 }
 
 class App3 extends React.Component {
@@ -26,7 +48,12 @@ class App3 extends React.Component {
         {user.name} (Age: {user.age})
       </li>
     ));
-    return <ul>{userList}</ul>;
+    return (
+      <div>
+        <Line />
+        <ul>{userList}</ul>
+      </div>
+    );
   }
 }
 
@@ -39,6 +66,7 @@ class App4 extends React.Component {
   render() {
     return (
       <div>
+        <Line />
         <h1>{this.state.cnt}</h1>
         <button onClick={() => this.setState({ cnt: this.state.cnt + 1 })}>
           Click
@@ -73,6 +101,7 @@ class App5 extends React.Component {
     ));
     return (
       <div>
+        <Line />
         <ul>{userList}</ul>
         <button onClick={() => this.changeState()}>Click</button>
       </div>
@@ -92,6 +121,7 @@ class App6 extends React.Component {
   render() {
     return (
       <div>
+        <Line />
         <BrowserRouter>
           <ul>
             <li>
@@ -125,6 +155,7 @@ class App7 extends React.Component {
   render() {
     return (
       <div>
+        <Line />
         <BrowserRouter>
           <ul>
             <li>
@@ -148,6 +179,32 @@ class App7 extends React.Component {
   }
 }
 
+class App8 extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      v: 0,
+    };
+  }
+  render() {
+    return (
+      <div>
+        <Line />
+        <input
+          id="app8_input"
+          value={this.state.v}
+          onChange={(e) => {
+            const s = this.state;
+            s.v = e.target.value;
+            this.setState(s);
+          }}
+        />
+        <p>{this.state.v}</p>
+      </div>
+    );
+  }
+}
+
 function App() {
   return (
     <div>
@@ -158,6 +215,7 @@ function App() {
       <App5 />
       <App6 />
       <App7 />
+      <App8 />
     </div>
   );
 }
