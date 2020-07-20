@@ -10,13 +10,23 @@ class NameComponent extends React.Component {
   }
 
   componentDidMount() {
-    const updateValue = () => {
-      const v = this.state;
-      v.value = this.state.value + "x";
-      this.setState(v);
-      setTimeout(updateValue, 1000);
-    };
-    setTimeout(updateValue, 1000);
+    fetch("/todos")
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
+      .then(
+        (result) => {
+          this.setState({
+            value: result[0].title,
+          });
+        },
+        // 補足：コンポーネント内のバグによる例外を隠蔽しないためにも
+        // catch()ブロックの代わりにここでエラーハンドリングすることが重要です
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
   handleChange(event) {
