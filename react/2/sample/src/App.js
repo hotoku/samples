@@ -213,10 +213,10 @@ class App8 extends React.Component {
   }
 }
 
-function fun9(props) {
+function Fun9(props) {
   return (
     <div>
-      <div>rendering fun9</div>
+      <div>rendering Fun9</div>
       <div>{props.value}</div>
     </div>
   );
@@ -228,8 +228,7 @@ function App9() {
       <Line />
       <p>route先のコンポーネントに値を渡す例</p>
       <BrowserRouter>
-        {/* <Route path="/1" render={() => <fun9 value="fun9" />} /> */}
-        <Route path="/1" component={fun9} />
+        <Route path="/1" render={() => <Fun9 value="Fun9" />} />
       </BrowserRouter>
     </div>
   );
