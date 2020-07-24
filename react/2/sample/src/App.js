@@ -21,6 +21,7 @@ class App1 extends React.Component {
     return (
       <div>
         <Line />
+        <p>classによるコンポーネント定義</p>
         <h1> {this.props.name}</h1>
       </div>
     );
@@ -31,6 +32,7 @@ function App2(props) {
   return (
     <div>
       <Line />
+      <p>関数によるコンポーネント定義</p>
       <h1> {props.name} </h1>
     </div>
   );
@@ -51,6 +53,7 @@ class App3 extends React.Component {
     return (
       <div>
         <Line />
+        <p>リストを使って要素を定義</p>
         <ul>{userList}</ul>
       </div>
     );
@@ -67,6 +70,7 @@ class App4 extends React.Component {
     return (
       <div>
         <Line />
+        <p>状態の更新の例</p>
         <h1>{this.state.cnt}</h1>
         <button onClick={() => this.setState({ cnt: this.state.cnt + 1 })}>
           Click
@@ -102,6 +106,7 @@ class App5 extends React.Component {
     return (
       <div>
         <Line />
+        <p>要素の数を動的に変える例</p>
         <ul>{userList}</ul>
         <button onClick={() => this.changeState()}>Click</button>
       </div>
@@ -122,6 +127,7 @@ class App6 extends React.Component {
     return (
       <div>
         <Line />
+        <p>routeの例</p>
         <BrowserRouter>
           <ul>
             <li>
@@ -156,6 +162,7 @@ class App7 extends React.Component {
     return (
       <div>
         <Line />
+        <p>switch/routeの例</p>
         <BrowserRouter>
           <ul>
             <li>
@@ -190,6 +197,7 @@ class App8 extends React.Component {
     return (
       <div>
         <Line />
+        <p>動的に値を変えられるinput(text)</p>
         <input
           id="app8_input"
           value={this.state.v}
@@ -205,6 +213,28 @@ class App8 extends React.Component {
   }
 }
 
+function fun9(props) {
+  return (
+    <div>
+      <div>rendering fun9</div>
+      <div>{props.value}</div>
+    </div>
+  );
+}
+
+function App9() {
+  return (
+    <div>
+      <Line />
+      <p>route先のコンポーネントに値を渡す例</p>
+      <BrowserRouter>
+        {/* <Route path="/1" render={() => <fun9 value="fun9" />} /> */}
+        <Route path="/1" component={fun9} />
+      </BrowserRouter>
+    </div>
+  );
+}
+
 function App() {
   return (
     <div>
@@ -216,6 +246,8 @@ function App() {
       <App6 />
       <App7 />
       <App8 />
+      <App9 />
+      <div>end</div>
     </div>
   );
 }
