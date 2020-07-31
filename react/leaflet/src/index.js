@@ -3,6 +3,11 @@ import ReactDOM from "react-dom";
 import { Map, TileLayer, Marker, Popup, Polygon } from "react-leaflet";
 import "./index.css";
 
+const style = {
+  height: "200px",
+  width: "95%",
+};
+
 class SimpleExample extends React.Component {
   constructor() {
     super();
@@ -16,8 +21,8 @@ class SimpleExample extends React.Component {
   render() {
     const position = [this.state.lat, this.state.lng];
     return (
-      <div style={{ width: "70%" }}>
-        <Map center={position} zoom={this.state.zoom}>
+      <div>
+        <Map center={position} zoom={this.state.zoom} style={style}>
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
@@ -52,8 +57,8 @@ class PolygonExample extends React.Component {
     ];
 
     return (
-      <div style={{ width: "70%" }}>
-        <Map viewport={this.state.viewport}>
+      <div>
+        <Map viewport={this.state.viewport} style={style}>
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
@@ -78,13 +83,58 @@ class PopupExample extends React.Component {
   render() {
     const pos = [51.505, -0.085];
     return (
-      <div style={{ width: "70%" }}>
-        <Map viewport={this.state.viewport}>
+      <div>
+        <Map viewport={this.state.viewport} style={style}>
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
           />
           <Popup position={pos}>aaa</Popup>
+        </Map>
+      </div>
+    );
+  }
+}
+
+class OnclickExample extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      viewport: {
+        center: [51.505, -0.09],
+        zoom: 13,
+      },
+      popPos: null,
+    };
+  }
+
+  handleClick = (e) => {
+    this.setState({
+      popPos: this.state.viewport.center,
+    });
+  };
+
+  popup = () => {
+    if (this.state.popPos) {
+      return <Popup position={this.state.popPos}>click!</Popup>;
+    } else {
+      return <div />;
+    }
+  };
+
+  render() {
+    return (
+      <div>
+        <Map
+          viewport={this.state.viewport}
+          onClick={this.handleClick}
+          style={style}
+        >
+          <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
+          />
+          {this.popup()}
         </Map>
       </div>
     );
@@ -101,6 +151,8 @@ class App extends React.Component {
         <PolygonExample />
         <h1>PopupExample</h1>
         <PopupExample />
+        <h1>OnclickExample</h1>
+        <OnclickExample />
       </div>
     );
   }
