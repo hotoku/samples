@@ -116,7 +116,20 @@ class OnclickExample extends React.Component {
 
   popup = () => {
     if (this.state.popPos) {
-      return <Popup position={this.state.popPos}>click!</Popup>;
+      return (
+        <Popup
+          position={this.state.popPos}
+          onClose={() => {
+            /*
+              状態が変化しないと再描画されない。1度消えたあと、再度クリックされたときに
+              描画されるようにするため、stateをクリアしておく
+            */
+            this.setState({ popPos: null });
+          }}
+        >
+          click!
+        </Popup>
+      );
     } else {
       return <div />;
     }
