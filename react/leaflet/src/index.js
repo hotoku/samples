@@ -131,7 +131,64 @@ class OnclickExample extends React.Component {
         </Popup>
       );
     } else {
-      return <div />;
+      return null;
+    }
+  };
+
+  render() {
+    return (
+      <div>
+        <Map
+          viewport={this.state.viewport}
+          onClick={this.handleClick}
+          style={style}
+        >
+          <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
+          />
+          {this.popup()}
+        </Map>
+      </div>
+    );
+  }
+}
+
+class ClickLatlngExample extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      viewport: {
+        center: [51.505, -0.09],
+        zoom: 13,
+      },
+      popPos: null,
+    };
+  }
+
+  handleClick = (e) => {
+    this.setState({
+      popPos: e.latlng,
+    });
+  };
+
+  popup = () => {
+    if (this.state.popPos) {
+      return (
+        <Popup
+          position={this.state.popPos}
+          onClose={() => {
+            this.setState({ popPos: null });
+          }}
+        >
+          latitude: {this.state.popPos.lat}
+          <br />
+          longitude: {this.state.popPos.lng}
+          <br />
+        </Popup>
+      );
+    } else {
+      return null;
     }
   };
 
@@ -166,6 +223,8 @@ class App extends React.Component {
         <PopupExample />
         <h1>OnclickExample</h1>
         <OnclickExample />
+        <h1>ClickLatlngExample</h1>
+        <ClickLatlngExample />
       </div>
     );
   }
