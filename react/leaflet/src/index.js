@@ -16,17 +16,19 @@ class SimpleExample extends React.Component {
   render() {
     const position = [this.state.lat, this.state.lng];
     return (
-      <Map center={position} zoom={this.state.zoom}>
-        <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
-        />
-        <Marker position={position}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-      </Map>
+      <div style={{ width: "70%" }}>
+        <Map center={position} zoom={this.state.zoom}>
+          <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
+          />
+          <Marker position={position}>
+            <Popup>
+              A pretty CSS3 popup. <br /> Easily customizable.
+            </Popup>
+          </Marker>
+        </Map>
+      </div>
     );
   }
 }
@@ -50,13 +52,39 @@ class PolygonExample extends React.Component {
     ];
 
     return (
-      <div>
+      <div style={{ width: "70%" }}>
         <Map viewport={this.state.viewport}>
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
           />
           <Polygon color="red" positions={pos} />
+        </Map>
+      </div>
+    );
+  }
+}
+
+class PopupExample extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      viewport: {
+        center: [51.505, -0.09],
+        zoom: 13,
+      },
+    };
+  }
+  render() {
+    const pos = [51.505, -0.085];
+    return (
+      <div style={{ width: "70%" }}>
+        <Map viewport={this.state.viewport}>
+          <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
+          />
+          <Popup position={pos}>aaa</Popup>
         </Map>
       </div>
     );
@@ -71,6 +99,8 @@ class App extends React.Component {
         <SimpleExample />
         <h1>PolygonExample</h1>
         <PolygonExample />
+        <h1>PopupExample</h1>
+        <PopupExample />
       </div>
     );
   }
