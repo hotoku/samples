@@ -34,16 +34,16 @@
     (with-standard-io-syntax
       (print *db* out))))
 
+(defun load-db (filename)
+  (with-open-file (in filename)
+    (with-standard-io-syntax
+      (setf *db* (read in)))))
+
 (defun select (selector-fun)
   (remove-if-not selector-fun *db*))
 
-(defun where (&key title artist rating (ripped nil ripped-p))
-  #'(lambda (cd)
-      (and
-       (if title (equal (getf cd :title) title) t)
-       (if artist (equal (getf cd :artist) artist) t)
-       (if rating (equal (getf cd :rating) rating) t)
-       (if ripped-p (equal (getcf cd :ripped) ripped) t)))) 
+(defmacro where (&rest clauses)
+  `#'(lambda (cd) (and ,@(make-comparisons-list clauses))))
 
 (defun update (selector-fn &key title artist rating (ripped nil ripped-p))
   (setf *db* (mapcar
@@ -55,3 +55,10 @@
                     (if ripped-p (setf (getf row :ripped) ripped)))
                   row)
               *db*)))
+
+(defun make-comparison-expr (field value)
+  `(equal (getf cd ,field) ,value))
+
+(defun make-comparisons-list (fields)
+  (loop
+    while fields collecting (make-comparison-expr (pop fields) (pop fields))))

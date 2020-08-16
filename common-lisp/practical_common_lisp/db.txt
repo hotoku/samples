@@ -1,0 +1,2 @@
+
+((:|TITLE| "b" :|ARTIST| "y" :|RATING| 1. :|RIPPED| |COMMON-LISP|::|NIL|) (:|TITLE| "a" :|ARTIST| "x" :|RATING| 0. :|RIPPED| |COMMON-LISP|::|T|)) 
