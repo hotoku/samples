@@ -1,4 +1,4 @@
 .PHONY: all
 
 all:
-	echo $$PATH
+	echo $${PATH}
