@@ -1,24 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Sample1 } from "./components/sample1";
+import { Sample2 } from "./components/sample2";
+
+const Line = () => {
+  return (
+    <hr
+      style={{
+        color: "black",
+        backgroundColor: "black",
+        height: 1,
+      }}
+    />
+  );
+};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Sample1 name="sample1" />
+      <Line />
+      <Sample2 cnt={0} />
     </div>
   );
 }
