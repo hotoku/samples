@@ -1,4 +1,3 @@
-type NodeType<T> = Head<T> | LinkNode<T> | Tail<T>
 type Preceder<T> = Head<T> | LinkNode<T>
 type Follower<T> = LinkNode<T> | Tail<T>
 
@@ -88,9 +87,11 @@ class LinkNode<T> extends NodeBase<T> {
 export class LinkList<T> implements Iterable<T> {
   private _head: Head<T>
   private _tail: Tail<T>
+  private _size: number
   constructor() {
     this._head = new Head()
     this._tail = new Tail()
+    this._size = 0
 
     // breaking a `protected` guard
     this._head["_next"] = this._tail
@@ -102,16 +103,21 @@ export class LinkList<T> implements Iterable<T> {
   get tail(): Tail<T> {
     return this._tail
   }
+  get length(): number {
+    return this._size
+  }
   insert(v: T, p: Preceder<T>): LinkNode<T> {
     const n = p.next()
     const ret = new LinkNode(p, n, v)
     p.setNext(ret)
     n.setPrev(ret)
+    this._size++
     return ret
   }
   delete(p: LinkNode<T>): LinkNode<T> {
     p.prev().setNext(p.next())
     p.next().setPrev(p.prev())
+    this._size--
     return p
   }
   push(v: T): LinkNode<T> {

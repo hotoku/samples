@@ -61,4 +61,16 @@ describe("link_list", () => {
       expect(ary2[i]).to.be.equal(ary[i])
     }
   })
+
+  it("size", () => {
+    const l = new LinkList<number>()
+    const n1 = l.push(1)
+    expect(l.length).to.be.equal(1)
+    const n2 = l.push(2)
+    expect(l.length).to.be.equal(2)
+    l.delete(n1)
+    expect(l.length).to.be.equal(1)
+    l.delete(n2)
+    expect(l.length).to.be.equal(0)
+  })
 })
