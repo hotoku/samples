@@ -7,7 +7,7 @@ import { LinkList } from "../src/link_list"
 
 
 describe("link_list", () => {
-  it("insert and delete", () => {
+  it("insert", () => {
     const l = new LinkList<number>()
     const h = l.head
     const n1 = l.insert(1, h)
@@ -18,7 +18,7 @@ describe("link_list", () => {
     expect(n3.val).to.be.equal(3)
   })
 
-  it("insert", () => {
+  it("insert 2", () => {
     const l = new LinkList<number>()
     const h = l.head
     const t = l.tail
@@ -29,6 +29,13 @@ describe("link_list", () => {
     expect(n.prev()).to.be.equal(h, "n.prev")
     expect(n.next()).to.be.equal(t, "n.next")
     expect(t.prev()).to.be.equal(n, "t.prev")
+  })
+
+  it("delete", () => {
+    const l = new LinkList<number>()
+    const n = l.insert(1, l.head)
+    l.delete(n)
+    expect(l.head.next()).to.be.equal(l.tail)
   })
 
   it("push", () => {
