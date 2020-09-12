@@ -1,5 +1,9 @@
-class A {
+class GetterSetter {
   private _a: number
+
+  constructor() {
+    this._a = 0
+  }
 
   get a(): number {
     return this._a
@@ -10,6 +14,8 @@ class A {
   }
 }
 
-const a = new A()
-a.a = 100
-console.log(a.a)
+(() => {
+  const gs = new GetterSetter()
+  gs.a = 10
+  console.log(gs.a)
+})()

@@ -1,4 +1,4 @@
-class A implements Iterable<number>{
+class Itr implements Iterable<number>{
   constructor(private n: number) { }
 
   *[Symbol.iterator](): Iterator<number> {
@@ -8,7 +8,9 @@ class A implements Iterable<number>{
   }
 }
 
-const a = new A(3)
-for (let i of a) {
-  console.log(i)
-}
+(() => {
+  const a = new Itr(3)
+  for (let i of a) {
+    console.log(i)
+  }
+})()
