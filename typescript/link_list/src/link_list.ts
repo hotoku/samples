@@ -1,11 +1,14 @@
-type Preceder<T> = Head<T> | LinkNode<T>
-type Follower<T> = LinkNode<T> | Tail<T>
+export type Preceder<T> = Head<T> | LinkNode<T>
+export type Follower<T> = LinkNode<T> | Tail<T>
 
 class NodeBase<T> {
+  protected _list: LinkList<T>
   protected _prev?: Preceder<T>
   protected _next?: Follower<T>
 
-  constructor(p?: Preceder<T>, n?: Follower<T>) {
+
+  constructor(l: LinkList<T>, p?: Preceder<T>, n?: Follower<T>) {
+    this._list = l
     this._prev = p
     this._next = n
   }
@@ -52,11 +55,11 @@ class Tail<T> extends NodeBase<T> {
   }
 }
 
-class LinkNode<T> extends NodeBase<T> {
+export class LinkNode<T> extends NodeBase<T> {
   kind = "LinkNode" as const
   private _val: T
-  constructor(p: Preceder<T>, n: Follower<T>, v: T) {
-    super(p, n)
+  constructor(l: LinkList<T>, p: Preceder<T>, n: Follower<T>, v: T) {
+    super(l, p, n)
     this._val = v
   }
   prev(): Preceder<T> {
@@ -89,8 +92,8 @@ export class LinkList<T> implements Iterable<T> {
   private _tail: Tail<T>
   private _size: number
   constructor() {
-    this._head = new Head()
-    this._tail = new Tail()
+    this._head = new Head(this)
+    this._tail = new Tail(this)
     this._size = 0
 
     // breaking a `protected` guard
@@ -108,7 +111,7 @@ export class LinkList<T> implements Iterable<T> {
   }
   insert(v: T, p: Preceder<T>): LinkNode<T> {
     const n = p.next()
-    const ret = new LinkNode(p, n, v)
+    const ret = new LinkNode(this, p, n, v)
     p.setNext(ret)
     n.setPrev(ret)
     this._size++
@@ -132,6 +135,23 @@ export class LinkList<T> implements Iterable<T> {
         case "LinkNode": {
           yield n.val
           n = n.next()
+          break
+        }
+        default: throw "never come here"
+      }
+    }
+  }
+  find_first(pred: (v: T) => boolean): Follower<T> {
+    let n = this.head.next()
+    while (true) {
+      switch (n.kind) {
+        case "Tail": return n
+        case "LinkNode": {
+          if (pred(n.val)) {
+            return n
+          } else {
+            n = n.next()
+          }
           break
         }
         default: throw "never come here"

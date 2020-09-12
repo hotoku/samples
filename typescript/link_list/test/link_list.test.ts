@@ -73,4 +73,21 @@ describe("link_list", () => {
     l.delete(n2)
     expect(l.length).to.be.equal(0)
   })
+
+  it("find first", () => {
+    const l = new LinkList<number>()
+    l.push(1)
+    l.push(2)
+    l.push(3)
+    const n = l.find_first(v => (v > 2))
+    switch (n.kind) {
+      case "LinkNode": expect(n.val).to.be.equal(3); break
+      default: throw "never come here"
+    }
+    const m = l.find_first(v => (v > 3))
+    switch (m.kind) {
+      case "Tail": expect(m).to.be.equal(l.tail); break
+      default: throw "never come here"
+    }
+  })
 })
