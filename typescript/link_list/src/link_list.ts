@@ -20,7 +20,7 @@ export class NodeBase<T> {
   }
 }
 
-class Head<T> extends NodeBase<T> {
+export class Head<T> extends NodeBase<T> {
   kind = "Head" as const
   prev(): undefined {
     return undefined
@@ -37,7 +37,7 @@ class Head<T> extends NodeBase<T> {
   }
 }
 
-class Tail<T> extends NodeBase<T> {
+export class Tail<T> extends NodeBase<T> {
   kind = "Tail" as const
   prev(): Preceder<T> {
     if (this._prev === undefined) {
@@ -136,7 +136,7 @@ export class LinkList<T> implements Iterable<T> {
           n = n.next()
           break
         }
-        default: throw "never come here 2"
+        default: throw "never come here 8007eb3d6a"
       }
     }
   }
@@ -155,7 +155,7 @@ export class LinkList<T> implements Iterable<T> {
           }
           break
         }
-        default: throw "never come here 1"
+        default: throw "never come here 2034c75ec9"
       }
     }
   }

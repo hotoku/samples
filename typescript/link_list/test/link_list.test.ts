@@ -54,7 +54,7 @@ describe("link_list", () => {
     const x = l.tail.prev()
     switch (x.kind) {
       case "LinkNode": expect(x.val).to.be.equal(2); break
-      default: throw "never come here"
+      default: throw "never come here cb9729e809"
     }
   })
 
@@ -91,12 +91,12 @@ describe("link_list", () => {
     const n = LinkList.find_last(v => (v <= 2), l.head)
     switch (n.kind) {
       case "LinkNode": expect(n.val).to.be.equal(2); break
-      default: throw "never come here 4"
+      default: throw "never come here bf8c3db84d"
     }
     const m = LinkList.find_last(v => (v <= 10), l.head)
     switch (m.kind) {
       case "LinkNode": expect(m.val).to.be.equal(3); break
-      default: throw "never come here 3"
+      default: throw "never come here 916fa8bb65"
     }
   })
 })
