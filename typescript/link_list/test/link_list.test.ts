@@ -1,7 +1,7 @@
-import { expect } from "chai";
-import "mocha";
-
+import { expect } from "chai"
 import { LinkList } from "../src/link_list"
+
+
 
 
 
@@ -29,6 +29,15 @@ describe("link_list", () => {
     expect(n.prev()).to.be.equal(h, "n.prev")
     expect(n.next()).to.be.equal(t, "n.next")
     expect(t.prev()).to.be.equal(n, "t.prev")
+  })
+
+  it("insert 3", () => {
+    const l = new LinkList<number>()
+    const n1 = l.push(1)
+    const n2 = l.push(2)
+    const n3 = l.push(3)
+    expect(n1.next()).to.be.equal(n2)
+    expect(n2.next()).to.be.equal(n3)
   })
 
   it("delete", () => {
@@ -74,20 +83,20 @@ describe("link_list", () => {
     expect(l.length).to.be.equal(0)
   })
 
-  it("find first", () => {
+  it("find last", () => {
     const l = new LinkList<number>()
     l.push(1)
     l.push(2)
     l.push(3)
-    const n = l.find_first(v => (v > 2))
+    const n = LinkList.find_last(v => (v <= 2), l.head)
     switch (n.kind) {
-      case "LinkNode": expect(n.val).to.be.equal(3); break
-      default: throw "never come here"
+      case "LinkNode": expect(n.val).to.be.equal(2); break
+      default: throw "never come here 4"
     }
-    const m = l.find_first(v => (v > 3))
+    const m = LinkList.find_last(v => (v <= 10), l.head)
     switch (m.kind) {
-      case "Tail": expect(m).to.be.equal(l.tail); break
-      default: throw "never come here"
+      case "LinkNode": expect(m.val).to.be.equal(3); break
+      default: throw "never come here 3"
     }
   })
 })

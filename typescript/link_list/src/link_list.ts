@@ -1,14 +1,13 @@
 export type Preceder<T> = Head<T> | LinkNode<T>
 export type Follower<T> = LinkNode<T> | Tail<T>
 
-class NodeBase<T> {
-  protected _list: LinkList<T>
+
+export class NodeBase<T> {
   protected _prev?: Preceder<T>
   protected _next?: Follower<T>
 
 
-  constructor(l: LinkList<T>, p?: Preceder<T>, n?: Follower<T>) {
-    this._list = l
+  constructor(p?: Preceder<T>, n?: Follower<T>) {
     this._prev = p
     this._next = n
   }
@@ -58,8 +57,8 @@ class Tail<T> extends NodeBase<T> {
 export class LinkNode<T> extends NodeBase<T> {
   kind = "LinkNode" as const
   private _val: T
-  constructor(l: LinkList<T>, p: Preceder<T>, n: Follower<T>, v: T) {
-    super(l, p, n)
+  constructor(p: Preceder<T>, n: Follower<T>, v: T) {
+    super(p, n)
     this._val = v
   }
   prev(): Preceder<T> {
@@ -92,8 +91,8 @@ export class LinkList<T> implements Iterable<T> {
   private _tail: Tail<T>
   private _size: number
   constructor() {
-    this._head = new Head(this)
-    this._tail = new Tail(this)
+    this._head = new Head()
+    this._tail = new Tail()
     this._size = 0
 
     // breaking a `protected` guard
@@ -111,7 +110,7 @@ export class LinkList<T> implements Iterable<T> {
   }
   insert(v: T, p: Preceder<T>): LinkNode<T> {
     const n = p.next()
-    const ret = new LinkNode(this, p, n, v)
+    const ret = new LinkNode(p, n, v)
     p.setNext(ret)
     n.setPrev(ret)
     this._size++
@@ -137,24 +136,26 @@ export class LinkList<T> implements Iterable<T> {
           n = n.next()
           break
         }
-        default: throw "never come here"
+        default: throw "never come here 2"
       }
     }
   }
-  find_first(pred: (v: T) => boolean): Follower<T> {
-    let n = this.head.next()
+  static find_last<T>(pred: (v: T) => boolean, node: Preceder<T>): Preceder<T> {
+    let cur: Preceder<T> = node
+    let next: Follower<T> = node.next()
     while (true) {
-      switch (n.kind) {
-        case "Tail": return n
+      switch (next.kind) {
+        case "Tail": return cur
         case "LinkNode": {
-          if (pred(n.val)) {
-            return n
+          if (!pred(next.val)) {
+            return cur
           } else {
-            n = n.next()
+            cur = next
+            next = cur.next()
           }
           break
         }
-        default: throw "never come here"
+        default: throw "never come here 1"
       }
     }
   }
