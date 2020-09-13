@@ -113,7 +113,7 @@ class Elem<T> extends NodeBase<T> {
   }
 }
 
-class SkipList<T> {
+export class SkipList<T> {
   private _head: Head<T>
   private _tail: Tail<T>
   private _size: number
@@ -230,6 +230,18 @@ class SkipList<T> {
         const next = node.next(lev)
         x.setNext(lev, next)
         next.setPrev(lev, x)
+      }
+    }
+  }
+  *[Symbol.iterator](): Iterator<T> {
+    let cur = this._head.next(0)
+    while (true) {
+      switch (cur.kind) {
+        case "Tail": return
+        case "Elem": {
+          yield cur.val
+          cur = cur.next(0)
+        }
       }
     }
   }
