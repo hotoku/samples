@@ -116,30 +116,18 @@ class Elem<T> extends NodeBase<T> {
 
 export class SkipList<T> {
   private _head: Head<T>
-  private _tail: Tail<T>
   private _size: number
   private _prob: number = 0.5 as const
   private _le: (x: T) => ((y: T) => boolean)
-  private _lt: (x: T) => ((y: T) => boolean)
   private _eq: (x: T) => ((y: T) => boolean)
-  private _ge: (x: T) => ((y: T) => boolean)
-  private _gt: (x: T) => ((y: T) => boolean)
   private _rng: () => number
 
 
   constructor(private _level: number, _cmp: (x: T, y: T) => number) {
     this._head = new Head<T>(_level)
-    const t = this._head.next(0)
-    switch (t.kind) {
-      case "Tail": this._tail = t; break
-      default: throw "never come here d34c78a9cd"
-    }
     this._size = 0
     this._le = (x: T) => ((y: T) => _cmp(y, x) <= 0)
-    this._lt = (x: T) => ((y: T) => _cmp(y, x) < 0)
     this._eq = (x: T) => ((y: T) => _cmp(y, x) === 0)
-    this._ge = (x: T) => ((y: T) => _cmp(y, x) >= 0)
-    this._gt = (x: T) => ((y: T) => _cmp(y, x) > 0)
     this._rng = seedrandom("hello")
   }
   private _find_level(): number {
