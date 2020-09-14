@@ -141,7 +141,7 @@ export class SkipList<T> {
   }
   private _find_level(): number {
     let ret = 1
-    while (ret <= this._level && Math.random() < this._prob) {
+    while (ret < this._level && Math.random() < this._prob) {
       ret++
     }
     return ret
@@ -184,6 +184,9 @@ export class SkipList<T> {
     const prevs: Preceder<T>[] = []
     const nexts: Follower<T>[] = []
     for (let i = 0; i < level; i++) {
+      if (pos[i] === undefined) {
+        debugger
+      }
       prevs[i] = pos[i]
       nexts[i] = pos[i].next(i)
     }
@@ -232,6 +235,7 @@ export class SkipList<T> {
         next.setPrev(lev, x)
       }
     }
+    this._size--
   }
   *[Symbol.iterator](): Iterator<T> {
     let cur = this._head.next(0)
