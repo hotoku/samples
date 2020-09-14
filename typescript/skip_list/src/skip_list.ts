@@ -1,4 +1,5 @@
 import { assert } from "chai"
+import seedrandom = require("seedrandom")
 type Preceder<T> = Head<T> | Elem<T>
 type Follower<T> = Elem<T> | Tail<T>
 
@@ -123,6 +124,7 @@ export class SkipList<T> {
   private _eq: (x: T) => ((y: T) => boolean)
   private _ge: (x: T) => ((y: T) => boolean)
   private _gt: (x: T) => ((y: T) => boolean)
+  private _rng: () => number
 
 
   constructor(private _level: number, _cmp: (x: T, y: T) => number) {
@@ -138,10 +140,11 @@ export class SkipList<T> {
     this._eq = (x: T) => ((y: T) => _cmp(y, x) === 0)
     this._ge = (x: T) => ((y: T) => _cmp(y, x) >= 0)
     this._gt = (x: T) => ((y: T) => _cmp(y, x) > 0)
+    this._rng = seedrandom("hello")
   }
   private _find_level(): number {
     let ret = 1
-    while (ret < this._level && Math.random() < this._prob) {
+    while (ret < this._level && this._rng() < this._prob) {
       ret++
     }
     return ret
