@@ -34,7 +34,7 @@ describe("skip list", () => {
     expect(s.has(10)).to.be.false
   })
 
-  it("insert & delete", () => {
+  it("insert", () => {
     const s = new SkipList(30, cmp)
     const n = 1000000
     // const n = 3
