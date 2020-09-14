@@ -34,7 +34,7 @@ describe("skip list", () => {
     expect(s.has(10)).to.be.false
   })
 
-  it("insert", () => {
+  it("insert many", () => {
     const s = new SkipList(30, cmp)
     const n = 1000000
     // const n = 3
@@ -42,6 +42,21 @@ describe("skip list", () => {
       s.insert(i)
     }
     expect(s.size).to.be.equal(n)
+  })
+
+  it("insert many 2", () => {
+    const s = new SkipList(30, cmp)
+    const n = 1000000
+    for (let i = 0; i < n; i++) {
+      s.insert(1)
+    }
+    expect(s.size).to.be.equal(1)
+    let x = 0
+    for (let v of s) {
+      x++
+      expect(v).to.be.equal(1)
+    }
+    expect(x).to.be.equal(1)
   })
 
   it("iterator", () => {
