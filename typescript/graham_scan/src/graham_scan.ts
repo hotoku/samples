@@ -7,18 +7,10 @@ function cmp(a: Point, b: Point): number {
   else return a.y - b.y
 }
 
-function triangle_test(a: Point, b: Point, c: Point): number {
-  /*
-    precondition
-    a.x <= b.x <= c.x or a.x >= b.x >= c.x
-    return
-    1: c is left of line a->b
-    0: a,b,c are colinear
-    -1: c is right of line a->b
-  */
-  if (c.y >= b.y) return 1
-  if (c.y <= a.y) return -1
-  return (a.x - c.x) * (b.y - c.y) - (a.y - c.y) * (b.x - c.x)
+function triangle_test(a: Point, b: Point, c: Point): boolean {
+  if (c.y >= b.y) return true
+  if (c.y <= a.y) return false
+  return (a.x - c.x) * (b.y - c.y) - (a.y - c.y) * (b.x - c.x) > 0
 }
 
 class Vector<T> {
@@ -49,6 +41,21 @@ class Vector<T> {
   }
 }
 
+function make_half_convex_hull(ps: Generator<Point>): Vector<Point> {
+  const vec = new Vector<Point>()
+  for (let p of ps) {
+    vec.push(p)
+    let m = vec.length
+    while (m >= 3 && triangle_test(vec.at(m - 3), vec.at(m - 2), vec.at(m - 1))) {
+      vec.subst(m - 2, vec.at(m - 1))
+      vec.pop()
+    }
+  }
+
+  return vec
+}
+
+
 export function graham_scan(data: Point[]): Point[] {
   const set = new SkipList<Point>(30, cmp)
   for (let i of data) {
@@ -56,6 +63,28 @@ export function graham_scan(data: Point[]): Point[] {
   }
   const n = set.size
   const data2 = Array.from(set).sort(cmp)
-  const a = data2[0]
-  const b = data2[n - 1]
+  if (n <= 3) {
+    return data2
+  }
+  function* temp() {
+    for (let p of data2) {
+      yield p
+    }
+  }
+  function* temp2() {
+    for (let i = data2.length - 1; i >= 0; i--) {
+      yield data2[i]
+    }
+  }
+  const vec = make_half_convex_hull(temp())
+  const vec2 = make_half_convex_hull(temp2())
+  const ret = new Array<Point>()
+  let i = 0
+  for (; i < vec.length; i++) {
+    ret[i] = vec.at(i)
+  }
+  for (let j = 1; j < vec2.length - 1; j++) {
+    ret[i] = vec.at(j)
+  }
+  return ret
 }
