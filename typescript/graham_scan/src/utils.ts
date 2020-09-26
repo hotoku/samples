@@ -6,7 +6,7 @@ export class Point {
     if (x === 0) {
       this._arg = y > 0 ? Math.PI / 2 : -Math.PI / 2
     } else {
-      this._arg = Math.acos(y / x)
+      this._arg = Math.atan(y / x)
     }
 
   }
