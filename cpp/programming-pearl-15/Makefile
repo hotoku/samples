@@ -5,10 +5,12 @@ all: map hash
 
 
 map: map.out pg10.txt
+	@echo ====
 	time ./$< < pg10.txt
 
 
 hash: hash.out pg10.txt
+	@echo ====
 	time ./$< < pg10.txt
 
 

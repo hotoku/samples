@@ -29,7 +29,7 @@ unsigned int hash2(const char* p){
 void incword(const char* s){
   unsigned int h = hash2(s);
   for(nodeptr p = bin[h]; p; p = p->next){
-    if(strcmp(p->word, s)){
+    if(strcmp(p->word, s)==0){
       p->count++;
       return;
     }
@@ -47,12 +47,11 @@ int main(){
   string buf;
   map<string, int> m;
   while (cin >> buf){
-    unsigned int h = hash2(buf.c_str());
-    nodeptr p = bin[h];
+    incword(buf.c_str());
   }
 
   gettimeofday(&e, NULL);
-  cout << (e.tv_sec * 1e6 + e.tv_usec) - (s.tv_sec * 1e6 + s.tv_usec) << endl;
+  cout << "hash: " << (e.tv_sec * 1e6 + e.tv_usec) - (s.tv_sec * 1e6 + s.tv_usec) << endl;
 
   for(int i = 0; i < NHASH; i++){
     for(nodeptr p = bin[i]; p; p = p->next){
@@ -61,6 +60,6 @@ int main(){
   }
 
   gettimeofday(&e, NULL);
-  cout << (e.tv_sec * 1e6 + e.tv_usec) - (s.tv_sec * 1e6 + s.tv_usec) << endl;
+  cout << "hash: " << (e.tv_sec * 1e6 + e.tv_usec) - (s.tv_sec * 1e6 + s.tv_usec) << endl;
   return 0;
 }
