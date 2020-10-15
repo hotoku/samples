@@ -4,13 +4,13 @@ using namespace std;
 
 #define TYPEMAX(type) {                                                 \
     const unsigned long long temp = (1llu << (sizeof(type)*8 - 1)) - 1; \
-    cout << temp << endl;                                               \
+    cout << #type << ": " << temp << endl;                              \
   }
 
 #define UTYPEMAX(type) {                                                \
     const unsigned long long temp1 = (1llu << (sizeof(type)*8 - 1)) - 1; \
     const unsigned long long temp2 = (1llu << (sizeof(type)*8 - 1));    \
-    cout << temp1+temp2 << endl;                                        \
+    cout << #type << ": " << temp1+temp2 << endl;                       \
   }
 
 
