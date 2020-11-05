@@ -18,9 +18,7 @@ export function Login(props: { user: User }) {
         value={password}
         onClick={(e) => {
           (async () => {
-            console.log("before", props.user);
             await props.user.login(password);
-            console.log("after", props.user);
           })();
         }}
       >

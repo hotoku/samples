@@ -37,7 +37,7 @@ function App() {
         <Switch>
           <Route exact path="/1" render={() => <Sample1 name={"sample1"} />} />
           <Route exact path="/2" render={() => <Sample2 cnt={0} />} />
-          <Route exact path="/3" component={Sample3} />
+          <Route path="/3" component={Sample3} />
           <p>no match</p>
         </Switch>
       </BrowserRouter>
