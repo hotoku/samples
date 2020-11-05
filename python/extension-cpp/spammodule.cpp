@@ -36,3 +36,8 @@ PyInit_spam(void)
 {
   return PyModule_Create(&spammodule);
 }
+
+// Local Variables:
+// flycheck-gcc-include-path: ("")
+// flycheck-clang-include-path: ("")
+// End:
