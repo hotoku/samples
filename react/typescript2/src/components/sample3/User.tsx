@@ -7,8 +7,8 @@ const sleep = (msec: number) =>
   new Promise((resolve) => setTimeout(resolve, msec));
 
 async function checkPassword(s: string): Promise<boolean> {
-  // await sleep(1000);
-  return new Promise(() => s === "abc");
+  await sleep(1000);
+  return s === "abc";
 }
 
 class User {
