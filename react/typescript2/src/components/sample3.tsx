@@ -23,10 +23,10 @@ export class Sample3 extends React.Component<{}, State> {
           <Switch>
             <Route
               exact
-              path="/login"
+              path="/3/login"
               render={() => <Login user={this.user} />}
             />
-            <Link to="/login">login</Link>
+            <Link to="/3/login">login</Link>
           </Switch>
         </BrowserRouter>
       </div>

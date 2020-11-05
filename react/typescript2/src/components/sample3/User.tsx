@@ -3,6 +3,14 @@ import React from "react";
 interface Props {}
 interface State {}
 
+const sleep = (msec: number) =>
+  new Promise((resolve) => setTimeout(resolve, msec));
+
+async function checkPassword(s: string): Promise<boolean> {
+  // await sleep(1000);
+  return new Promise(() => s === "abc");
+}
+
 class User {
   private _loggedin: boolean;
 
@@ -10,13 +18,11 @@ class User {
     this._loggedin = false;
   }
 
-  public login(password: string): boolean {
-    if (password === "abc") {
-      this._loggedin = true;
-    } else {
-      this._loggedin = false;
-    }
-    return this._loggedin;
+  public async login(password: string) {
+    console.log("login start");
+    const ret = await checkPassword(password);
+    this._loggedin = ret;
+    console.log("login end");
   }
 }
 

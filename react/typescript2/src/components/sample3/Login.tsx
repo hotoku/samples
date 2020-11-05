@@ -8,7 +8,7 @@ export function Login(props: { user: User }) {
     <div>
       <label htmlFor="password">password</label>
       <input
-        type="text"
+        type="password"
         id="password"
         onChange={(e) => {
           setPassword(e.target.value);
@@ -17,8 +17,11 @@ export function Login(props: { user: User }) {
       <button
         value={password}
         onClick={(e) => {
-          console.log(props.user);
-          props.user.login(password);
+          (async () => {
+            console.log("before", props.user);
+            await props.user.login(password);
+            console.log("after", props.user);
+          })();
         }}
       >
         log in
