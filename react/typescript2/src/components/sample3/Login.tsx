@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import User from "./User";
 
 export function Login(props: { user: User }) {
   const [password, setPassword] = useState("");
+  const history = useHistory();
 
   return (
     <div>
@@ -19,6 +21,7 @@ export function Login(props: { user: User }) {
         onClick={(e) => {
           (async () => {
             await props.user.login(password);
+            history.push("/3");
           })();
         }}
       >

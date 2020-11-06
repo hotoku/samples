@@ -19,10 +19,12 @@ class User {
   }
 
   public async login(password: string) {
-    console.log("login start");
     const ret = await checkPassword(password);
     this._loggedin = ret;
-    console.log("login end");
+  }
+
+  public get loggedin(): boolean {
+    return this._loggedin;
   }
 }
 
