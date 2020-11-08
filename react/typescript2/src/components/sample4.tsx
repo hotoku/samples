@@ -9,6 +9,10 @@ import {
   RouteComponentProps,
 } from "react-router-dom";
 
+/*
+   function componentとclass componentでhistory.pushをする方法のサンプル
+ */
+
 function A() {
   const history = useHistory();
   return (
@@ -39,7 +43,7 @@ class B extends React.Component<BProps> {
     super(props);
   }
   push = (s: string) => {
-    this.props.history(s);
+    this.props.history.push(s);
   };
 
   render = () => {
@@ -47,14 +51,14 @@ class B extends React.Component<BProps> {
       <div>
         <p>B</p>
         <button
-          onClick={(e) => {
+          onClick={() => {
             this.push("/4/A");
           }}
         >
           A
         </button>
         <button
-          onClick={(e) => {
+          onClick={() => {
             this.push("/4/B");
           }}
         >
@@ -65,33 +69,32 @@ class B extends React.Component<BProps> {
   };
 }
 
-function Default() {
-  return (
-    <div>
-      <BrowserRouter>
-        <ul>
-          <li>
-            <Link to="/4/A">A</Link>
-          </li>
-          <li>
-            <Link to="/4/B">B</Link>
-          </li>
-        </ul>
-        <Switch>
-          <Route exact path="/4/A" component={A} />
-          <Route exact path="/4/B" component={B} />
-        </Switch>
-      </BrowserRouter>
-    </div>
-  );
-}
-
 export class Sample4 extends React.Component {
   render = () => {
     return (
       <div>
         <p>sample4</p>
-        <Default />
+        <BrowserRouter>
+          <ul>
+            <li>
+              <Link to="/4/A">A</Link>
+            </li>
+            <li>
+              <Link to="/4/B">B</Link>
+            </li>
+          </ul>
+          <Switch>
+            <Route
+              exact
+              path="/4"
+              render={() => {
+                return null;
+              }}
+            />
+            <Route exact path="/4/A" component={A} />
+            <Route exact path="/4/B" component={B} />
+          </Switch>
+        </BrowserRouter>
       </div>
     );
   };

@@ -9,6 +9,8 @@ interface State {
   user: User;
 }
 
+/* シンプルなlogin/logoutの画面遷移 */
+
 export class Sample3 extends React.Component<{}, State> {
   private user: User;
 
