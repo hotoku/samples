@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 import { Login } from "./sample3/Login";
+import { Logout } from "./sample3/Logout";
 import User from "./sample3/User";
 import Auth from "./sample3/Auth";
 
@@ -27,8 +28,14 @@ export class Sample3 extends React.Component<{}, State> {
               path="/3/login"
               render={() => <Login user={this.user} />}
             />
+            <Route
+              exact
+              path="/3/logout"
+              render={() => <Logout user={this.user} />}
+            />
             <Auth user={this.user}>
               <p>logged in</p>
+              <Link to="/3/logout">logout</Link>
             </Auth>
           </Switch>
         </BrowserRouter>

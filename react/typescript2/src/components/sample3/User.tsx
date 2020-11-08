@@ -26,6 +26,10 @@ class User {
   public get loggedin(): boolean {
     return this._loggedin;
   }
+
+  public logout() {
+    this._loggedin = false;
+  }
 }
 
 export default User;
