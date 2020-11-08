@@ -26,18 +26,7 @@ export class Sample3 extends React.Component<{}, State> {
             <Route
               exact
               path="/3/login"
-              render={() => (
-                <Login
-                  user={this.user}
-                  callback={(loggedin: boolean) => {
-                    if (loggedin) {
-                      console.log("ok");
-                    } else {
-                      console.log("ng");
-                    }
-                  }}
-                />
-              )}
+              render={() => <Login user={this.user} />}
             />
             <Route
               exact

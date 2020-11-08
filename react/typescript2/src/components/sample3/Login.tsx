@@ -2,13 +2,9 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import User from "./User";
 
-interface Props {
-  user: User;
-  callback: (loggedin: boolean) => void;
-}
-
-export function Login(props: Props) {
+export function Login(props: { user: User }) {
   const [password, setPassword] = useState("");
+  const history = useHistory();
 
   return (
     <div>
@@ -24,8 +20,8 @@ export function Login(props: Props) {
         value={password}
         onClick={(e) => {
           (async () => {
-            const ret = await props.user.login(password);
-            props.callback(ret);
+            await props.user.login(password);
+            history.push("/3");
           })();
         }}
       >
