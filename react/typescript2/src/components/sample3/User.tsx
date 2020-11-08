@@ -18,9 +18,10 @@ class User {
     this._loggedin = false;
   }
 
-  public async login(password: string) {
+  public async login(password: string): Promise<boolean> {
     const ret = await checkPassword(password);
     this._loggedin = ret;
+    return ret;
   }
 
   public get loggedin(): boolean {
