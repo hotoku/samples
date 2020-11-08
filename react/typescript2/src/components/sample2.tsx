@@ -1,12 +1,16 @@
 import React from "react";
 
 interface IProps {
-  cnt: number
+  cnt: number;
 }
 
 interface IState {
-  count: number
+  count: number;
 }
+
+/*
+   <a>のクリックで状態遷移する例
+ */
 
 export class Sample2 extends React.Component<IProps, IState> {
   state: IState;
@@ -16,16 +20,19 @@ export class Sample2 extends React.Component<IProps, IState> {
   }
 
   handleClick = () => {
-    // this.state.count = this.state.count + 1;
-    // Do not mutate state directly という警告が出る
     this.setState({
-      count: this.state.count + 1
-    })
-  }
+      count: this.state.count + 1,
+    });
+  };
 
   render = () => {
     return (
-      <a href="#" onClick={this.handleClick}>{this.state.count}</a>
+      <div>
+        <a href="#" onClick={this.handleClick}>
+          increment
+        </a>
+        <p>{this.state.count}</p>
+      </div>
     );
-  }
+  };
 }
