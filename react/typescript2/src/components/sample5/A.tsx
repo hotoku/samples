@@ -10,8 +10,13 @@ export const A = (props: Props) => {
       {({ x, y }) => {
         return (
           <div>
-            <p>x={x}</p>
-            <p>y={y}</p>
+            <ul>
+              <li>A</li>
+              <ul>
+                <li>x={x}</li>
+                <li>y={y}</li>
+              </ul>
+            </ul>
           </div>
         );
       }}

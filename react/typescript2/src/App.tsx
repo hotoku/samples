@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { Sample1 } from "./components/sample1";
 import { Sample2 } from "./components/sample2";
 import { Sample3 } from "./components/sample3";
 import { Sample4 } from "./components/sample4";
 import { Sample5 } from "./components/sample5";
+import { Sample6 } from "./components/sample6";
 import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 
 const Line = () => {
@@ -39,6 +40,9 @@ function App() {
           <li>
             <Link to="/5">5</Link>
           </li>
+          <li>
+            <Link to="/6">6</Link>
+          </li>
         </ul>
         <Line />
 
@@ -48,6 +52,7 @@ function App() {
           <Route path="/3" component={Sample3} />
           <Route exact path="/4" component={Sample4} />
           <Route exact path="/5" component={Sample5} />
+          <Route exact path="/6" component={Sample6} />
           <p>no match</p>
         </Switch>
       </BrowserRouter>
