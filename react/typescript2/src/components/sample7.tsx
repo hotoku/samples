@@ -1,17 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 /* updateできるcontextの例
    https://www.carlrippon.com/react-context-with-typescript-p1/
+
+   - 1. コンテキストの値の型を定義する
+   - 2. コンテキストを定義
+   - 3. Poroviderコンポーネントを定義
+   -- 3.1 このコンポーネントの中でuseStateして状態と更新関数を作る
+   -- 3.2 この状態と更新関数を、コンテキストの値とする
+   - 4. コンテキストを取得するためのcustom hookを作る
+   - 5. Providerの子孫コンテキストでコンテキストを取得し、値を使う or 更新する
  */
 
-const defaultTheme = "white";
-const ThemeContext = React.createContext(defaultTheme);
+// 1
+type ThemeContextType = {
+  theme: string;
+  setTheme: (value: string) => void;
+};
 
-/* Componetを定義
-   このコンポーネントをrootとして、その下のコンポーネントでcontextが使えるようになる
- */
+// 2
+const ThemeContext = React.createContext<ThemeContextType | undefined>(
+  undefined
+);
+
+// 3
 export const ThemeProvider = (props: { children: React.ReactNode }) => {
-  const [theme, setTheme] = React.useState(defaultTheme);
+  // 3.1
+  const [theme, setTheme] = React.useState();
 
   React.useEffect(() => {
     const currentTheme = "lightblue";
@@ -19,24 +34,42 @@ export const ThemeProvider = (props: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <ThemeContext.Provider value={theme}>
+    // 3.2
+    <ThemeContext.Provider value={{ theme, setTheme }}>
       {props.children}
     </ThemeContext.Provider>
   );
 };
 
-/* custom hookを定義
-   子孫コンポーネントの中で使う。
- */
+// 4.
 export const useTheme = () => React.useContext(ThemeContext);
 
-/* contextの利用者
- */
 const Header = () => {
+  // 5.
   const theme = useTheme();
-  // const theme = React.useContext(ThemeContext);
-  // でも良い
-  return <div style={{ background: theme }}>hello!</div>;
+  const val = theme ? theme.theme : "white";
+  return (
+    <div style={{ background: val }}>
+      <button
+        onClick={() => {
+          if (theme) {
+            theme.setTheme("black");
+          }
+        }}
+      >
+        black
+      </button>
+      <button
+        onClick={() => {
+          if (theme) {
+            theme.setTheme("lightblue");
+          }
+        }}
+      >
+        blue
+      </button>
+    </div>
+  );
 };
 
 export const Sample7 = () => {

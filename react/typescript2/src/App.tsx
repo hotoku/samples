@@ -27,25 +27,27 @@ function App() {
       <BrowserRouter>
         <ul>
           <li>
-            <Link to="/1">1</Link>
+            <Link to="/1">1: 単純にノードを返すだけの例</Link>
           </li>
           <li>
-            <Link to="/2">2</Link>
+            <Link to="/2">2: aタグでアクションを起こす例</Link>
           </li>
           <li>
-            <Link to="/3">3</Link>
+            <Link to="/3">3: 簡単なログインフォーム</Link>
           </li>
           <li>
-            <Link to="/4">4</Link>
+            <Link to="/4">
+              4: function componentとclass componentでhistory.push
+            </Link>
           </li>
           <li>
-            <Link to="/5">5</Link>
+            <Link to="/5">5: contextの例</Link>
           </li>
           <li>
-            <Link to="/6">6</Link>
+            <Link to="/6">6: useEffect</Link>
           </li>
           <li>
-            <Link to="/7">7</Link>
+            <Link to="/7">7: contextの更新</Link>
           </li>
         </ul>
         <Line />
