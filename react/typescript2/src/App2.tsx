@@ -5,9 +5,7 @@ function App() {
   const [counter, setCounter] = useState(0);
   return (
     <div>
-      <form>
-        <button onClick={() => setCounter(counter + 1)}>click</button>
-      </form>
+      <button onClick={() => setCounter(counter + 1)}>click</button>
       <p>count={counter}</p>
     </div>
   );
