@@ -6,6 +6,7 @@ import { Sample3 } from "./components/sample3";
 import { Sample4 } from "./components/sample4";
 import { Sample5 } from "./components/sample5";
 import { Sample6 } from "./components/sample6";
+import { Sample7 } from "./components/sample7";
 import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 
 const Line = () => {
@@ -43,6 +44,9 @@ function App() {
           <li>
             <Link to="/6">6</Link>
           </li>
+          <li>
+            <Link to="/7">7</Link>
+          </li>
         </ul>
         <Line />
 
@@ -53,6 +57,7 @@ function App() {
           <Route exact path="/4" component={Sample4} />
           <Route exact path="/5" component={Sample5} />
           <Route exact path="/6" component={Sample6} />
+          <Route exact path="/7" component={Sample7} />
           <p>no match</p>
         </Switch>
       </BrowserRouter>
