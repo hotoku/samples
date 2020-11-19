@@ -66,13 +66,6 @@ const Size = (props: {}) => {
 export const Sample11 = (props: {}) => {
   const [value, setValue] = useState(defaultFont);
 
-  const updateSize = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue({
-      ...value,
-      size: parseFloat(e.target.value),
-    });
-  };
-
   return (
     <div>
       <FontContext.Provider value={{ font: value, setValue: setValue }}>
