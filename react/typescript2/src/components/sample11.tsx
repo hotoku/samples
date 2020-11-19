@@ -15,25 +15,30 @@ export const FontContext = React.createContext({
   setValue: (v: Font) => {},
 });
 
-const Color = (props: {}) => {
+const Button = (props: {}) => {
   const { font, setValue } = useContext(FontContext);
 
-  const updateColor = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const update = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue({
       ...font,
-      color: e.target.value,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const updateSize = () => {
+    setValue({
+      ...font,
+      size: font.size + 4,
     });
   };
 
   return (
     <div>
       <form onSubmit={(e) => e.preventDefault()}>
-        <input
-          type="color"
-          value={font.color}
-          name="color"
-          onChange={updateColor}
-        />
+        <input type="color" value={font.color} name="color" onChange={update} />
+        <button value={font.size} name="size" onClick={updateSize}>
+          +4
+        </button>
       </form>
     </div>
   );
@@ -69,7 +74,7 @@ export const Sample11 = (props: {}) => {
   return (
     <div>
       <FontContext.Provider value={{ font: value, setValue: setValue }}>
-        <Color />
+        <Button />
         <Size />
         <h1 style={{ fontSize: `${value.size}px`, color: `${value.color}` }}>
           FONT SIZE {value.size}px
