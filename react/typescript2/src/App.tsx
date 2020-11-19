@@ -26,50 +26,33 @@ const Line = () => {
   );
 };
 
+const routes = [
+  "単純にノードを返すだけの例",
+  "aタグでアクションを起こす例",
+  "簡単なログインフォーム",
+  "function componentとclass componentでhistory.push",
+  "contextの例",
+  "useEffect",
+  "contextの更新",
+  "text inputと状態の同期",
+  "contextとtext input",
+  "formの中でボタンを使う",
+  "オブジェクトのcontextを更新",
+  "inputとstateの同期",
+];
+
 function App() {
   return (
     <div>
-      {[<div>1</div>, <div>2</div>]}
       <BrowserRouter>
         <ul>
-          <li>
-            <Link to="/1">1: 単純にノードを返すだけの例</Link>
-          </li>
-          <li>
-            <Link to="/2">2: aタグでアクションを起こす例</Link>
-          </li>
-          <li>
-            <Link to="/3">3: 簡単なログインフォーム</Link>
-          </li>
-          <li>
-            <Link to="/4">
-              4: function componentとclass componentでhistory.push
-            </Link>
-          </li>
-          <li>
-            <Link to="/5">5: contextの例</Link>
-          </li>
-          <li>
-            <Link to="/6">6: useEffect</Link>
-          </li>
-          <li>
-            <Link to="/7">7: contextの更新</Link>
-          </li>
-          <li>
-            <Link to="/8">8: text inputと状態の同期</Link>
-          </li>
-          <li>
-            <Link to="/9"> 9: contextとtext input</Link>
-          </li>
-          <li>
-            <Link to="/10"> 10: formの中でボタンを使う</Link>
-          </li>
-          <li>
-            <Link to="/11"> 11: オブジェクトのcontextを更新</Link>
-          </li>
-          <li>
-            <Link to="/12"> 12: inputとstateの同期</Link>
-          </li>
+          {routes.map((v, i) => {
+            return (
+              <li>
+                <Link to={"/" + i}>{v}</Link>
+              </li>
+            );
+          })}
         </ul>
         <Line />
 
