@@ -11,6 +11,7 @@ import { Sample8 } from "./components/sample8";
 import { Sample9 } from "./components/sample9";
 import { Sample10 } from "./components/sample10";
 import { Sample11 } from "./components/sample11";
+import { Sample12 } from "./components/sample12";
 import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 
 const Line = () => {
@@ -28,6 +29,7 @@ const Line = () => {
 function App() {
   return (
     <div>
+      {[<div>1</div>, <div>2</div>]}
       <BrowserRouter>
         <ul>
           <li>
@@ -65,6 +67,9 @@ function App() {
           <li>
             <Link to="/11"> 11: オブジェクトのcontextを更新</Link>
           </li>
+          <li>
+            <Link to="/12"> 12: inputとstateの同期</Link>
+          </li>
         </ul>
         <Line />
 
@@ -80,6 +85,7 @@ function App() {
           <Route exact path="/9" component={Sample9} />
           <Route exact path="/10" component={Sample10} />
           <Route exact path="/11" component={Sample11} />
+          <Route exact path="/12" component={Sample12} />
           <p>no match</p>
         </Switch>
       </BrowserRouter>
