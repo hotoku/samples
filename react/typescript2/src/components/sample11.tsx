@@ -18,25 +18,33 @@ export const FontContext = React.createContext({
 const Button = (props: {}) => {
   const { font, setValue } = useContext(FontContext);
 
-  const update = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const update = (e: { name: string; value: any }) => {
     setValue({
       ...font,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const updateSize = () => {
-    setValue({
-      ...font,
-      size: font.size + 4,
+      [e.name]: e.value,
     });
   };
 
   return (
     <div>
       <form onSubmit={(e) => e.preventDefault()}>
-        <input type="color" value={font.color} name="color" onChange={update} />
-        <button value={font.size} name="size" onClick={updateSize}>
+        <input
+          style={{ height: "30px" }}
+          type="color"
+          value={font.color}
+          name="color"
+          onChange={(e) => {
+            update({ name: "color", value: e.target.value });
+          }}
+        />
+        <button
+          style={{ height: "30px" }}
+          value={font.size}
+          name="size"
+          onClick={(e) => {
+            update({ name: "size", value: font.size + 4 });
+          }}
+        >
           +4
         </button>
       </form>
