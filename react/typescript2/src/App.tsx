@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import { Sample1 } from "./components/sample1";
 import { Sample2 } from "./components/sample2";
@@ -10,6 +10,7 @@ import { Sample7 } from "./components/sample7";
 import { Sample8 } from "./components/sample8";
 import { Sample9 } from "./components/sample9";
 import { Sample10 } from "./components/sample10";
+import { Sample11 } from "./components/sample11";
 import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 
 const Line = () => {
@@ -61,6 +62,9 @@ function App() {
           <li>
             <Link to="/10"> 10: formの中でボタンを使う</Link>
           </li>
+          <li>
+            <Link to="/11"> 11: オブジェクトのcontextを更新</Link>
+          </li>
         </ul>
         <Line />
 
@@ -75,6 +79,7 @@ function App() {
           <Route exact path="/8" component={Sample8} />
           <Route exact path="/9" component={Sample9} />
           <Route exact path="/10" component={Sample10} />
+          <Route exact path="/11" component={Sample11} />
           <p>no match</p>
         </Switch>
       </BrowserRouter>
