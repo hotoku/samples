@@ -1,41 +1,86 @@
 import React, { useState, useContext } from "react";
 
-type FontContextValue = {
+type Font = {
   size: number;
-  setSize: (size: number) => void;
+  color: string;
 };
 
-const defaultFontContextValue: FontContextValue = {
+const defaultFont: Font = {
   size: 16,
-  setSize: (size: number) => {},
+  color: "red",
 };
 
-export const FontContext = React.createContext(defaultFontContextValue);
+export const FontContext = React.createContext({
+  font: defaultFont,
+  setValue: (v: Font) => {},
+});
 
-const Text = (props: {}) => {
-  const { size, setSize } = useContext(FontContext);
+const Color = (props: {}) => {
+  const { font, setValue } = useContext(FontContext);
+
+  const updateColor = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue({
+      ...font,
+      color: e.target.value,
+    });
+  };
+
   return (
     <div>
-      <button onClick={() => setSize(size + 4)}>+4</button>
+      <form onSubmit={(e) => e.preventDefault()}>
+        <input
+          type="color"
+          value={font.color}
+          name="color"
+          onChange={updateColor}
+        />
+      </form>
+    </div>
+  );
+};
+
+const Size = (props: {}) => {
+  const { font, setValue } = useContext(FontContext);
+
+  const updateSize = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue({
+      ...font,
+      size: parseFloat(e.target.value),
+    });
+  };
+
+  return (
+    <div>
+      <form onSubmit={(e) => e.preventDefault()}>
+        <input
+          type="number"
+          value={font.size}
+          name="size"
+          onChange={updateSize}
+        />
+      </form>
     </div>
   );
 };
 
 export const Sample11 = (props: {}) => {
-  const [size, setSize] = useState(16);
+  const [value, setValue] = useState(defaultFont);
+
+  const updateSize = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue({
+      ...value,
+      size: parseFloat(e.target.value),
+    });
+  };
 
   return (
     <div>
-      <FontContext.Provider value={{ size, setSize }}>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <Text />
-          <input
-            type="number"
-            value={size}
-            onChange={(e) => setSize(parseFloat(e.target.value))}
-          />
-        </form>
-        <h1 style={{ fontSize: `${size}px` }}>FONT SIZE {size}px</h1>
+      <FontContext.Provider value={{ font: value, setValue: setValue }}>
+        <Color />
+        <Size />
+        <h1 style={{ fontSize: `${value.size}px`, color: `${value.color}` }}>
+          FONT SIZE {value.size}px
+        </h1>
       </FontContext.Provider>
     </div>
   );
