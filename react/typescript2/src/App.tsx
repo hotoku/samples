@@ -8,6 +8,8 @@ import { Sample5 } from "./components/sample5";
 import { Sample6 } from "./components/sample6";
 import { Sample7 } from "./components/sample7";
 import { Sample8 } from "./components/sample8";
+import { Sample9 } from "./components/sample9";
+import { Sample10 } from "./components/sample10";
 import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 
 const Line = () => {
@@ -53,6 +55,12 @@ function App() {
           <li>
             <Link to="/8">8: text inputと状態の同期</Link>
           </li>
+          <li>
+            <Link to="/9"> 9: contextとtext input</Link>
+          </li>
+          <li>
+            <Link to="/10"> 10: formの中でボタンを使う</Link>
+          </li>
         </ul>
         <Line />
 
@@ -65,6 +73,8 @@ function App() {
           <Route exact path="/6" component={Sample6} />
           <Route exact path="/7" component={Sample7} />
           <Route exact path="/8" component={Sample8} />
+          <Route exact path="/9" component={Sample9} />
+          <Route exact path="/10" component={Sample10} />
           <p>no match</p>
         </Switch>
       </BrowserRouter>
