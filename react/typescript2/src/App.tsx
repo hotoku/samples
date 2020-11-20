@@ -45,15 +45,15 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <ul>
+        <ol>
           {routes.map((v, i) => {
             return (
               <li>
-                <Link to={"/" + i}>{v}</Link>
+                <Link to={"/" + (i + 1)}>{v}</Link>
               </li>
             );
           })}
-        </ul>
+        </ol>
         <Line />
 
         <Switch>
