@@ -13,6 +13,7 @@ import { Sample10 } from "./components/sample10";
 import { Sample11 } from "./components/sample11";
 import { Sample12 } from "./components/sample12";
 import { Sample13 } from "./components/sample13";
+import { Sample14 } from "./components/sample14";
 import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 
 const Line = () => {
@@ -41,6 +42,7 @@ const routes = [
   "オブジェクトのcontextを更新",
   "inputとstateの同期",
   "2つのコンポーネントで値を同期",
+  "2つのstateを互いに更新する",
 ];
 
 function App() {
@@ -72,6 +74,7 @@ function App() {
           <Route exact path="/11" component={Sample11} />
           <Route exact path="/12" component={Sample12} />
           <Route exact path="/13" component={Sample13} />
+          <Route exact path="/14" component={Sample14} />
           <p>no match</p>
         </Switch>
       </BrowserRouter>
