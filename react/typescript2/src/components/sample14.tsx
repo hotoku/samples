@@ -22,20 +22,6 @@ export const Sample14 = () => {
   const [logit, setLogit] = useState(0);
   console.log("sample14");
 
-  useEffect(() => {
-    (async () => {
-      const l = await getLogitFromProb(prob);
-      setLogit(l);
-    })();
-  }, [prob]);
-
-  useEffect(() => {
-    (async () => {
-      const p = await getProbFromLogit(logit);
-      setProb(p);
-    })();
-  }, [logit]);
-
   return (
     <div>
       <form onSubmit={(e) => e.preventDefault()}>
@@ -46,7 +32,12 @@ export const Sample14 = () => {
           value={logit}
           onChange={(e) => {
             console.log("logit change: ", e.target.value);
-            setLogit(parseFloat(e.target.value));
+            const logit = parseFloat(e.target.value);
+            setLogit(logit);
+            (async () => {
+              const p = await getProbFromLogit(logit);
+              setProb(p);
+            })();
           }}
         />
         <label htmlFor="prob">prob</label>
@@ -56,7 +47,12 @@ export const Sample14 = () => {
           value={prob}
           onChange={(e) => {
             console.log("prob change: ", e.target.value);
-            setProb(parseFloat(e.target.value));
+            const prob = parseFloat(e.target.value);
+            setProb(prob);
+            (async () => {
+              const l = await getLogitFromProb(prob);
+              setLogit(l);
+            })();
           }}
         />
       </form>
