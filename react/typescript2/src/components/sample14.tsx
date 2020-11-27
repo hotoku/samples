@@ -30,6 +30,7 @@ export const Sample14 = () => {
           id="logit"
           type="number"
           value={logit}
+          step={0.01}
           onChange={(e) => {
             console.log("logit change: ", e.target.value);
             const logit = parseFloat(e.target.value);
@@ -45,6 +46,7 @@ export const Sample14 = () => {
           id="prob"
           type="number"
           value={prob}
+          step={0.01}
           onChange={(e) => {
             console.log("prob change: ", e.target.value);
             const prob = parseFloat(e.target.value);
