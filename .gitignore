@@ -11,3 +11,7 @@ kitematic/
 /r/.cache/
 /r/.local/
 node_modules/
+
+.ipynb_checkpoints/
+jupyter.log
+jupyter.pid
