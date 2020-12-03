@@ -1,3 +1,5 @@
 #!/bin/bash
 
+# このファイルを .git/hooks/pre-commitに置くと、`git commit`したときに実行される。
+# hookが失敗すると、commitは行われない。
 pwd
