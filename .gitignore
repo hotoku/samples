@@ -15,3 +15,4 @@ node_modules/
 .ipynb_checkpoints/
 jupyter.log
 jupyter.pid
+gis/google/Takeout/
