@@ -11,11 +11,9 @@ with open(FILE, "w") as f:
 
 def doit(i):
     with open(FILE, "a") as f:
-        for j in range(1000):
-            if j > 0:
-                f.write(",")
-            f.write(f"{i}")
-            time.sleep(0.001)
+        for j in range(100):
+            f.write(f"{i},")
+            time.sleep(0.01)
         f.write("\n")
 
 with ThreadPoolExecutor(max_workers=100) as ex:
