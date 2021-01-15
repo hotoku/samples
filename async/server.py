@@ -4,7 +4,6 @@
 import bottle
 from bottle import route, request, HTTPResponse
 import json
-import sys
 import time
 
 
@@ -21,7 +20,10 @@ def root():
         k, v = prm.split("-")
     key = int(k)
     if key >= 5:
-        ret = {"done": True}
+        ret = {
+            "done": True,
+            "v": v
+        }
     else:
         ret = {
             "key": key + 1,
@@ -31,6 +33,7 @@ def root():
         "Content-Type": "application/json"
     }
     body = json.dumps(ret)
+    time.sleep(0.5)
     return HTTPResponse(status=200, body=body, headers=header)
 
 
