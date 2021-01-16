@@ -15,18 +15,22 @@ def get_url(k=None, v=None):
 async def worker(name, queue):
     while True:
         url = await queue.get()
-
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url) as resp:
-                ret = await resp.json()
-        if "done" in ret:
-            print(time.time(), ret["v"])
-        else:
-            key = ret["key"]
-            v = ret["v"]
-            for v_ in v:
-                queue.put_nowait(get_url(key, v_))
-        queue.task_done()
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url) as resp:
+                    ret = await resp.json()
+            if "done" in ret:
+                raise RuntimeError("error")
+                print(time.time(), ret["v"])
+            else:
+                key = ret["key"]
+                v = ret["v"]
+                for v_ in v:
+                    queue.put_nowait(get_url(key, v_))
+        except Exception:
+            pass
+        finally:
+            queue.task_done()
 
 
 async def main():
