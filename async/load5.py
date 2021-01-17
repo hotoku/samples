@@ -20,7 +20,6 @@ async def worker(name, queue):
                 async with session.get(url) as resp:
                     ret = await resp.json()
             if "done" in ret:
-                raise RuntimeError("error")
                 print(time.time(), ret["v"])
             else:
                 key = ret["key"]

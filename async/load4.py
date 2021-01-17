@@ -26,13 +26,14 @@ class RunningTasks:
 
 async def get(url):
     with RunningTasks(url):
-        logging.info(f"{url} start")
+        logging.info("start get %s task", url)
+        logging.info("# of currently running task: %d", len(RunningTasks.DIC))
         async with aiohttp.ClientSession() as session:
+            logging.info("start requesting %s", url)
             async with session.get(url) as resp:
                 ret = await resp.json()
         if "done" in ret:
             print(time.time(), ret["v"])
-            return
         else:
             key = ret["key"]
             v = ret["v"]
@@ -43,10 +44,11 @@ async def get(url):
 async def main():
     url = "http://localhost:9100"
     asyncio.create_task(get(url))
-    # await get(url)
+    logging.info("created task for %s", url)
     while True:
+        logging.info("before cheking, sleep a while")
         await asyncio.sleep(0.5)
-        logging.info(f"checking: {len(RunningTasks.DIC)}")
+        logging.info("checking: {len(RunningTasks.DIC)}")
         if len(RunningTasks.DIC) == 0:
             break
 
