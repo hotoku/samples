@@ -27,3 +27,7 @@ class ErrorHandler:
 with ErrorHandler("./temp.txt") as f:
     f.write("a\n")
     f.writelines([f"{i}\n" for i in range(10)])
+
+with ErrorHandler("./temp2.txt") as f:
+    f.write("b\n")
+    raise Exception("error")
