@@ -57,6 +57,7 @@ lower = sat (\x -> 'a' <= x && x <= 'z')
 upper :: Parser Char
 upper = sat (\x -> 'A' <= x && x <= 'Z')
 
+twolowers :: Parser String
 twolowers = lower `bind` \x ->
   lower `bind` \y ->
   result [x, y]
@@ -90,7 +91,7 @@ word = neWord `plus` result ""
 word2 :: Parser String
 word2 = neWord `plus` result ""
   where
-    neWord = letter `bind` \x ->
+    neWord = letter `bind` \_ ->
       word2
 
 main :: IO ()
