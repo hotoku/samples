@@ -94,8 +94,58 @@ word2 = neWord `plus` result ""
     neWord = letter `bind` \_ ->
       word2
 
+-- do記法で以下のようにも書ける。
+-- が、なんでこう書けるのかはよく分かってない。
+-- instance Monad Parser where ... みたいな記述はいらないの ... なぜ？
+word3 :: Parser String
+word3 = neWord `plus` result ""
+  where
+    neWord inp = do
+      (x, inp') <- letter inp
+      (xs, inp'') <- word3 inp'
+      [(x:xs, inp'')]
+
+-- 特定の文字列を認識する
+string :: String -> Parser String
+string "" = result ""
+string (x:xs) = char x `bind` \_
+  -> string xs `bind` \_
+  -> result (x:xs)
+
+-- これでも良い
+string2 :: String -> Parser String
+string2 "" inp = result "" inp
+string2 (x:xs) inp = do
+  (_, inp') <- char x inp
+  (_, inp'') <- string2 xs inp'
+  [(x:xs, inp'')]
+
+-- これは、コンパイルは通るが、文字が消費されない。
+-- 何が間違っているのか不明。
+string3 :: String -> Parser String
+string3 "" = result ""
+string3 (x:xs) = do
+  _ <- char x
+  _ <- string3 xs
+  result (x:xs)
+
+-- `p`を0回以上適用する
+many :: Parser a -> Parser [a]
+many p inp = (do
+  (x, inp') <- p inp
+  (xs, inp'') <- many p inp'
+  [(x:xs, inp'')]) ++  [([], inp)]
+  
+      
 main :: IO ()
 main = do
   putStrLn $ show $ twolowers "abcde"
   putStrLn $ show $ word "abc def"
   putStrLn $ show $ word2 "abc def"
+  putStrLn $ show $ word3 "abc def"
+  putStrLn $ show $ string "abc" "abc def"
+  putStrLn $ show $ string2 "abc" "abc def"
+  putStrLn $ show $ string3 "abc" "abc def"
+  putStrLn $ show $ many (char 'a') "aaabbb"
+  putStrLn $ show $ many (string "abc") "abcabcabd"
+
