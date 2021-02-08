@@ -136,7 +136,30 @@ many p inp = (do
   (xs, inp'') <- many p inp'
   [(x:xs, inp'')]) ++  [([], inp)]
   
-      
+-- 小文字 + 英数字を認識する。
+-- 識別子として使う。
+ident :: Parser String
+ident inp = do
+  (x, inp') <- lower inp
+  (xs, inp'') <- many alphanum inp'
+  [(x:xs, inp'')]
+
+-- `p`を1回以上適用する
+many1 :: Parser a -> Parser [a]
+many1 p inp = do
+  (x, inp') <- p inp
+  (xs, inp'') <- many p inp'
+  [(x:xs, inp'')]
+
+-- 自然数を認識する
+nat :: Parser Int
+nat inp = do
+  (xs, inp') <- many1 digit inp
+  [(eval xs, inp')]
+  where
+    eval xs = foldl1 op [x - '0' | x <- xs]
+    op m n = 10*m + n
+    
 main :: IO ()
 main = do
   putStrLn $ show $ twolowers "abcde"
@@ -148,4 +171,6 @@ main = do
   putStrLn $ show $ string3 "abc" "abc def"
   putStrLn $ show $ many (char 'a') "aaabbb"
   putStrLn $ show $ many (string "abc") "abcabcabd"
+  putStrLn $ show $ many1 (string "abc") "abcabcabd"
+  putStrLn $ show $ ident "abc128 abc129"
 
