@@ -1,3 +1,5 @@
+import Data.Char
+
 -- ParserはMonadだが、List aやMaybe aのような「値」ではなく「関数」であることに注意。
 -- パース対象の「文字列」を受け取り、(パース結果, 残り)の文字列のリストを返す。
 -- 複数の導出経路がある場合を表現するために、「リスト」になる。
@@ -157,7 +159,7 @@ nat inp = do
   (xs, inp') <- many1 digit inp
   [(eval xs, inp')]
   where
-    eval xs = foldl1 op [x - '0' | x <- xs]
+    eval xs = foldl1 op [digitToInt x | x <- xs]
     op m n = 10*m + n
     
 main :: IO ()
@@ -173,4 +175,4 @@ main = do
   putStrLn $ show $ many (string "abc") "abcabcabd"
   putStrLn $ show $ many1 (string "abc") "abcabcabd"
   putStrLn $ show $ ident "abc128 abc129"
-
+  putStrLn $ show $ nat "12345"
