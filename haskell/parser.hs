@@ -161,7 +161,7 @@ nat inp = do
   where
     eval xs = foldl1 op [digitToInt x | x <- xs]
     op m n = 10*m + n
-    
+
 main :: IO ()
 main = do
   putStrLn $ show $ twolowers "abcde"
