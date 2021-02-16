@@ -131,6 +131,10 @@ string3 (x:xs) = do
   _ <- string3 xs
   result (x:xs)
 
+string4 :: String -> Parser String
+string4 "" = result ""
+string4 (x:xs) = [x:xs | _ <- char x, _ <- string xs]
+
 -- `p`を0回以上適用する
 many :: Parser a -> Parser [a]
 many p inp = (do
