@@ -7,6 +7,9 @@ int main(){
   fs::path p("a/b/c.txt");
 
   std::cout << p.stem() << std::endl;
+  std::cout << p.string() << std::endl;
+
+  std::string s = p;
 
   return 0;
 }
