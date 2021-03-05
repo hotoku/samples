@@ -10,3 +10,4 @@ x.pop()  # 後ろから捨てられる
 print(x)
 x.popleft()
 print(x)  # 前から捨てられる
+print(x[0])
