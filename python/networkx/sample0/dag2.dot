@@ -1,0 +1,16 @@
+digraph G {
+0 [label="./1.sql", shape="", type=query];
+1 [label="./2.sql", shape="", type=query];
+2 [label="./3.sql", shape="", type=query];
+3 [label="./4.sql", shape="", type=query];
+4 [label="20210419_bq_jobrunner.table1", shape=box, type=table];
+5 [label="20210419_bq_jobrunner.table2", shape=box, type=table];
+6 [label="20210419_bq_jobrunner.table3", shape=box, type=table];
+7 [label="20210419_bq_jobrunner.table4", shape=box, type=table];
+0->4 ;
+1->5 ;
+2->6 ;
+3->7 ;
+4->1 ;
+4->2 ;
+}
