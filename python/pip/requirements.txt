@@ -1,0 +1,1 @@
+git+ssh://git@github.com/attta-jp/uke_parser@v1.0.3
