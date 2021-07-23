@@ -1,5 +1,5 @@
 cc_binary(
-    name = "hell",
+    name = "hello",
     srcs = [
         "main.cpp"
     ]
