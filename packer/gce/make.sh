@@ -12,7 +12,7 @@ instances \
 create \
 ${INSTANCE_NAME} \
 --zone=asia-northeast1-b \
---machine-type=e2-medium \
+--machine-type=c2-standard-16 \
 --subnet=default \
 --network-tier=PREMIUM \
 --maintenance-policy=MIGRATE \
