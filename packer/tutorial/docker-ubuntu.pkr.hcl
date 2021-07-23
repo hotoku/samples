@@ -38,7 +38,22 @@ build {
   }
   provisioner "shell" {
     inline = [ 
-     "echo Running ${var.docker_image}"
+      "echo Running ${var.docker_image}"
     ]    
+  }
+
+  
+
+
+  post-processor "docker-tag" {
+    repository = "learn-packer"
+    tags = ["ubuntu-xenial", "packer-rocks"]
+    only = ["docker.ubuntu"]
+  }
+
+  post-processor "docker-tag" {
+    repository = "learn-packer"
+    tags = ["ubuntu-bionic", "packer-rocks"]
+    only = ["docker.ubuntu-bionic"]
   }
 }
