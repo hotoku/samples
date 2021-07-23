@@ -19,3 +19,4 @@ gis/google/Takeout/
 /python/asyncio/15.txt
 *.log
 *.o
+.envrc
