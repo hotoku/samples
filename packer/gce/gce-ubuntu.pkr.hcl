@@ -25,4 +25,12 @@ build {
   sources = [
     "sources.googlecompute.basic-example"
   ]
+
+  # provisionは、必ずしも`startup.sh`のあとに実行されるわけではなさそう
+  provisioner "shell" {
+    inline = [
+      "mkdir -p /hotoku",
+      "touch /hotoku/provisioned"
+    ]
+  }
 }
