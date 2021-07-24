@@ -27,10 +27,11 @@ build {
   ]
 
   # provisionは、必ずしも`startup.sh`のあとに実行されるわけではなさそう
+  # というか、むしろ、startupの前に実行される模様
   provisioner "shell" {
     inline = [
-      "mkdir -p /hotoku",
-      "touch /hotoku/provisioned"
+      "sudo mkdir -p /hotoku",
+      "sudo touch /hotoku/provisioned"
     ]
   }
 }
