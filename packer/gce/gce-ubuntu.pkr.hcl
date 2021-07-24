@@ -31,7 +31,13 @@ build {
   provisioner "shell" {
     inline = [
       "sudo mkdir -p /hotoku",
-      "sudo touch /hotoku/provisioned"
+      "sudo touch /hotoku/provisioned",
+      "sudo chmod 777 /hotoku"
     ]
+  }
+
+  provisioner "file" {
+    source = "./setup.sh"
+    destination = "/hotoku/setup.sh"
   }
 }
