@@ -95,7 +95,7 @@ var main =
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nexports.f = void 0;\nfunction f(n) {\n    return n * 2;\n}\nexports.f = f;\n\n\n//# sourceURL=webpack://main/./src/main.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nexports.acf = void 0;\nfunction acf1(ary, deg) {\n    var s = 0;\n    for (var i = 0; i < ary.length; i++) {\n        s += ary[i];\n    }\n    s /= ary.length;\n    for (var i = 0; i < ary.length - deg; i++) { }\n}\nfunction acf(ary) {\n    var n = ary.length;\n    return n * 2;\n}\nexports.acf = acf;\n\n\n//# sourceURL=webpack://main/./src/main.ts?");
 
 /***/ })
 
