@@ -20,3 +20,4 @@ gis/google/Takeout/
 *.log
 *.o
 .envrc
+.python-version
