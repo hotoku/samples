@@ -41,10 +41,11 @@ class GoodUnit(DanceUnit, GoodSinger, JazzDancer):
     pass
 
 
-# bunit = BadUnit()
+good_unit = GoodUnit()
+good_unit.play()
+
+bad_unit = BadUnit()
 # > Traceback (most recent call last):
-# > File "abc_dance_unit.py", line 44, in <module>
-# >     bunit = BadUnit()
-# >     TypeError: Can't instantiate abstract class BadUnit with abstract methods sing
-gunit = GoodUnit()
-gunit.play()
+# >   File "abc_dance_unit.py", line 47, in <module>
+# >       bad_unit = BadUnit()
+# >       TypeError: Can't instantiate abstract class BadUnit with abstract methods sing
