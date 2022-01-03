@@ -21,3 +21,4 @@ gis/google/Takeout/
 *.o
 .envrc
 .python-version
+.cache
