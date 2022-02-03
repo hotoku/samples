@@ -11,7 +11,7 @@ slide.zip: main.html s5
 	$(eval DIST_DIR := slide)
 	rm -rf $(DIST_DIR) $@
 	mkdir $(DIST_DIR)
-	cp -r $^ $(DIST_DIR)
+	cp -r $^ resource $(DIST_DIR)
 	zip -r $@ $(DIST_DIR)
 
 

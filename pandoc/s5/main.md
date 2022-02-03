@@ -1,75 +1,41 @@
 ---
 title:
-- AI Playground
+- sample slide
 author:
-- Ashwin Kumar K
-theme:
-- Copenhagen
+- 堀越 保徳
 date:
-- March 22, 2020
+- 2022-02-07
 
 ---
 
-# What's AI?
+# サマリ
 
-- Artificial Intelligence- The ability of machine to think and behave like humans.
-- How does the machine learn on its own? - That is called Machine Learning. ML is the study of computer algorithms that improve automatically with experience.
-- Just like humans learn with experience - Machines also learn with experience!
-- Examples of common AI? Alexa, Siri, Google Home, Self Driving Cars, Robots etc.
+- ろーれむ・いぷさむ
+- 銀河鉄道の夜
+- 吾輩は猫である
 
-# What's out there?
+# 数式を書いてみる
 
-![Verticles](img/Untitled.png)
+確率変数$X$が正規分布に従うとき、$X$の確率密度関数は・・
+$$
+\mathrm{Pr}(x \le X < x + \mathrm{d}x)
+$$
 
-# How do computers make decisions?
+# コードを書いてみる
 
-- Conditional statements are used to perform different actions based on different conditions.
-- In many programming languages, decisions (also called conditionals) take the form of an if-then construct. They start with a condition, which is then evaluated as either True or False.
+```python
+import click
 
-# How do computers make decisions?
+@click.command()
+def main():
+    print("Hello World !")
 
-![Flow chart](img/Untitled 1.png){ width=250px }
+if __name__ == "__file__":
+    main()
+```
 
-# Let's Build that
+# 絵を入れてみる
 
-​```jsx
-Bot.send("Are you going out to play?")
-async function respond(inputText){
-    if (inputText == "yes"){
-        Bot.send("Wear a hat");
-    }
-    else {
-        Bot.send("ok");
-    }
+横浜の写真
 
- }
-\```     <REMOVE THE \>
-
-What we learned. - Bot.send() method - if else statements.
-
-# Build a basic greetings bot
-
-![Flow chart](img/Untitled 2.png)
-
-# Benefits of AI Playground
-
-- Streamlines a lot of back end operations, so that the you can just learn what AI is — and can get immediate results!
-- User friendly!
-- Designed to suit students needs.
-- Students can see and publish new projects and thus learn from each other.
-
-## How does learning AI help?
-
-- Logical reasoning and Sequencing
-- Critical thinking
-- Problem solving
-- Mental Mathematics
-    - The above skills are implicit skills that students learn along with AI. And this helps them in academics, life, etc.
-
-# Extra
-
-The well known Pythagorean theorem $x^2 + y^2 = z^2$ was  proved to be invalid for other exponents.
-Meaning the next equation has no integer solutions:
-$$x^n + y^n = z^n$$
-
-Can AI, help find near misses for this equation?
+![横浜](resource/yokohama.jpg){ width=250px }
