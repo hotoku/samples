@@ -32,6 +32,4 @@ if __name__ == "__file__":
 
 # 絵を入れてみる
 
-横浜の写真
-
-![横浜](resource/yokohama.jpg){ width=250px }
+![横浜の写真](resource/yokohama.jpg){ width=250px }
