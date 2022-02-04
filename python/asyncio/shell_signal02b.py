@@ -23,7 +23,7 @@ def handler(sig):
     for task in asyncio.all_tasks(loop=loop):
         task.cancel()
     print(f"got signal: {sig}, shutting down")
-    loop.remove_signal_handler(SIGTERM)
+    loop.add_signal_handler(SIGTERM, lambda: None)
     loop.add_signal_handler(SIGINT, lambda: None)
 
 
