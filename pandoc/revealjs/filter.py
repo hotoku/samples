@@ -39,7 +39,7 @@ def main():
             print("RevealMenu,")
         elif buf[1].strip() == '<link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/theme/black.css" id="theme">':
             print("""
-<link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/theme/white.css" id="theme">
+<link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/theme/serif.css" id="theme">
 <style>
   ul li {
       padding-bottom:0.4em;
@@ -47,10 +47,20 @@ def main():
   ol li {
       padding-bottom:0.4em;
   }
+  figcaption {
+      font-size: 0.6em;
+  }
   :root {
-      --r-heading1-size: 1.2em;
-      --r-heading-text-transform: none;
+      --r-main-font: Open Sans, sans-serif;
       --r-main-font-size: 34px;
+      --r-main-color: #383D3D;
+      --r-heading-font: Montserrat, Impact, sans-serif;
+      --r-code-font: monospace;
+      --r-heading-color: #BF2C47;
+      --r-heading1-size: 1.2em;
+      --r-heading2-size: 1em;
+      --r-heading-text-transform: none;
+      --r-link-color: #4973F2;
   }
 </style>
 """)

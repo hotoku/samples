@@ -8,7 +8,7 @@ PLUGIN_DIR := plugin
 all: main.html slide.zip
 
 
-main.html: main.md plugin/menu
+main.html: main.md plugin/menu filter.py
 	pandoc --mathjax -t revealjs -s $< | ./filter.py > $@
 
 
