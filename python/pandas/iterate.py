@@ -18,4 +18,4 @@ for c in df:
 行をなめたい場合はiterrowsを使う
 """
 for r in df.iterrows():
-    print(r)
+    print(r[0], r[1]["x"], r[1]["y"])
