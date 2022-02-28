@@ -11,5 +11,11 @@ df = pd.DataFrame(dict(
     y=range(3)
 ))
 
-for r in df:
+for c in df:
+    print(c)
+
+"""
+行をなめたい場合はiterrowsを使う
+"""
+for r in df.iterrows():
     print(r)
