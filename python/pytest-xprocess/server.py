@@ -17,6 +17,8 @@ def main():
         fp.write("hoge")
     print("server start", file=sys.stderr)
     sys.stderr.flush()
+    # flushしないと、内容バッファされてしまい実際にログファイルに書き込まれないため、
+    # いつまでたってもxprocessがサーバーの起動を認識できない
     app = web.Application()
     app.add_routes(routes)
     web.run_app(app)
