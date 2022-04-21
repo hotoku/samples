@@ -15,15 +15,9 @@ all: $(VIEWS)
 	@echo "this is view ($@)" >> $@
 
 
-%.sql: %.sql.jinja
-	@echo "making query: $@ <- ($^)"
-	@cat $< > $@
+%.sql:
+	@echo "making query: $@ <- ($^)" > $@
 	@echo "this is query" >> $@
-
-
-%.sql.jinja:
-	@echo "making template: $@ <- ($^)"
-	@echo "this is template" >> $@
 
 
 .PHONY: clean
