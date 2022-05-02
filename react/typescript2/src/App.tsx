@@ -16,6 +16,8 @@ import { Sample13 } from "./components/sample13";
 import { Sample14 } from "./components/sample14";
 import { Sample15 } from "./components/sample15";
 import { Sample16 } from "./components/sample16";
+import { Sample17 } from "./components/sample17";
+
 import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 
 const Line = () => {
@@ -46,7 +48,8 @@ const routes = [
   "2つのコンポーネントで値を同期",
   "2つのstateを互いに更新する",
   "基本的なカウンター(useStateのsetの例)",
-  "非同期更新の例",
+  "非同期更新の例(配列を使う)",
+  "非同期更新の例(objectを使う, これは上手くいかない)",
 ];
 
 function App() {
@@ -81,6 +84,7 @@ function App() {
           <Route exact path="/14" component={Sample14} />
           <Route exact path="/15" component={Sample15} />
           <Route exact path="/16" component={Sample16} />
+          <Route exact path="/17" component={Sample17} />
           <p>no match</p>
         </Switch>
       </BrowserRouter>
