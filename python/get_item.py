@@ -20,3 +20,5 @@ print(f[10, 20])
 print(f[10, :])
 # => TypeError: unsupported operand type(s) for +: 'int' and 'slice'
 # 文法エラーじゃない！
+# https://www.programiz.com/python-programming/methods/built-in/slice
+# これを見ると、sliceというオブジェクトがあるぽい
