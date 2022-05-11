@@ -9,3 +9,7 @@ g2.clear()
 
 print(g)
 print(g2)
+
+# =>
+# DiGraph with 3 nodes and 2 edges
+# DiGraph with 0 nodes and 0 edges
