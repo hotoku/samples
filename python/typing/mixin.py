@@ -7,7 +7,7 @@ from datetime import date, timedelta
 
 class Incrementable(ABC):
     @abstractmethod
-    def __add__(self, n: int):
+    def __add__(self, n: int) -> Incrementable:
         return NotImplemented
 
 
@@ -25,3 +25,10 @@ class MyDate(Incrementable):
 
     def __add__(self, n: int) -> MyDate:
         return MyDate(self.d + timedelta(days=n))
+
+
+x = MyInt(1)
+z = x + 1
+reveal_type(z)
+
+# cf: https://stackoverflow.com/questions/72200332/how-can-i-declare-that-the-return-type-of-a-member-method-is-that-of-self?noredirect=1#comment127566272_72200332
