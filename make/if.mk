@@ -6,5 +6,5 @@ else
 endif
 
 
-# make -f if.mk # => HOGE is not hoge
-# make -f if.mk HOGE=hoge # => Hoge is hoge
+# make -f if.mk => Hoge is not hoge
+# make -f if.mk HOGE=hoge => Hoge is not hoge
