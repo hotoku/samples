@@ -8,8 +8,11 @@ endef
 
 
 all:
-	$(call, f)
+	$(call f)
 
 
-# make -f if.mk # => HOGE is not hoge
-# make -f if.mk HOGE=hoge # => Hoge is hoge
+# うまくいかない・・
+# =>
+# ifeq (hoge,hoge)
+# /bin/sh: 1: Syntax error: word unexpected (expecting ")")
+# make: *** [define_if.mk:11: all] Error 2
