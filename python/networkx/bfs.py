@@ -24,3 +24,7 @@ for e in nx.edge_bfs(g, 1):
 
 for e in nx.edge_bfs(g, 24, "reverse"):
     print(e)
+
+# =>
+# (12, 24, 'reverse')
+# (1, 12, 'reverse')
