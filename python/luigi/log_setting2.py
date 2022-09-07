@@ -22,14 +22,30 @@ class ChildTask(luigi.Task):
     num = luigi.Parameter()
 
     def run(self):
-        logging.error("error: %s, name=%s, =%d, thread=%s", self.num,
-                      __name__, os.getpid(), threading.current_thread().name)
-        logging.warning("warning: %s, name=%s, =%d, thread=%s", self.num,
-                        __name__, os.getpid(), threading.current_thread().name)
-        logging.info("warn: %s, name=%s, =%d, thread=%s", self.num,
-                     __name__, os.getpid(), threading.current_thread().name)
-        logging.debug("debug: %s, name=%s, =%d, thread=%s", self.num,
-                      __name__, os.getpid(), threading.current_thread().name)
+        log = logging.getLogger()
+        print("info about root: ", log.name, log.parent, log.level)
+
+        log2 = logging.getLogger("luigi-interface")
+        print("info about luigi-interface: ",
+              log2.name, log2.parent, log2.level)
+
+        log.error("error: %s, name=%s, pid=%d, thread=%s, loglevel=%d", self.num,
+                  __name__, os.getpid(), threading.current_thread().name, log.level)
+        log.warning("warning: %s, name=%s, pid=%d, thread=%s, loglevel=%d", self.num,
+                    __name__, os.getpid(), threading.current_thread().name, log.level)
+        log.info("info: %s, name=%s, pid=%d, thread=%s, loglevel=%d", self.num,
+                 __name__, os.getpid(), threading.current_thread().name, log.level)
+        log.debug("debug: %s, name=%s, pid=%d, thread=%s, loglevel=%d", self.num,
+                  __name__, os.getpid(), threading.current_thread().name, log.level)
+
+        log2.error("error: %s, name=%s, pid=%d, thread=%s, loglevel=%d", self.num,
+                   __name__, os.getpid(), threading.current_thread().name, log2.level)
+        log2.warning("warning: %s, name=%s, pid=%d, thread=%s, loglevel=%d", self.num,
+                     __name__, os.getpid(), threading.current_thread().name, log2.level)
+        log2.info("info: %s, name=%s, pid=%d, thread=%s, loglevel=%d", self.num,
+                  __name__, os.getpid(), threading.current_thread().name, log2.level)
+        log2.debug("debug: %s, name=%s, pid=%d, thread=%s, loglevel=%d", self.num,
+                   __name__, os.getpid(), threading.current_thread().name, log2.level)
 
     def complete(self):
         return False
