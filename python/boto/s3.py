@@ -10,5 +10,5 @@ s3 = session.resource("s3")
 bucket = s3.Bucket(bucket_name)
 objs = bucket.objects.all()
 
-for obj in objs:
+for obj in objs.filter(Prefix="data/"):
     print(obj.key)
