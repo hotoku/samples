@@ -1,0 +1,4 @@
+(message "%s %s" 
+         sample-value-0
+         sample-value-1)
+
