@@ -16,17 +16,24 @@
 </head>
 <body>
     <button id="show">show</button>
+    <button id="showModal">showModal</button>
     <dialog id="dialog"><button id="close">close</button></dialog>
 </body>
-<script> 
+<script>  
  const dialog = document.getElementById("dialog")
  const show = document.getElementById("show")
+ const showModal = document.getElementById("showModal")
  const close = document.getElementById("close")
  show.addEventListener("click", ()=>{
+     dialog.show()
+ })
+ showModal.addEventListener("click", ()=>{
      dialog.showModal()
  })
  close.addEventListener("click", ()=>{
      dialog.close()
  })
+ // showだと、背景のボタンも押せる
+ // showModalだと、背景のボタンは無効になる
 </script>
 </html>
