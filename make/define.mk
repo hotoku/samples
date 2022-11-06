@@ -1,9 +1,9 @@
 define f
 echo a
 echo b
-echo c
+echo $1
 endef
 
 
 all:
-	$(call f)
+	$(call f,c)
