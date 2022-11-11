@@ -12,21 +12,26 @@ app.use(morgan("combined"));
 
 const schema = buildSchema(`
   type Query {
-    quoteOfTheDay: String
-    random: Float!
-    rollThreeDice: [Int]
+    rollDice(num: Int!, numSides: Int): [Int]
   }
 `);
 
 const root = {
-  quoteOfTheDay: () => {
-    return Math.random() < 0.5 ? "Take it easy" : "Salvation lies within";
-  },
-  random: () => {
-    return Math.random();
-  },
-  rollThreeDice: () => {
-    return [1, 2, 3].map((_) => 1 + Math.floor(Math.random() * 6));
+  rollDice: ({
+    num,
+    numSides,
+  }: {
+    num: number;
+    numSides: number | undefined;
+  }) => {
+    const ret = [] as number[];
+    console.log("num =", num);
+    for (let i = 0; i < num; i++) {
+      const v = 1 + Math.floor(Math.random() * (numSides || 6));
+      console.log(v);
+      ret.push(v);
+    }
+    return ret;
   },
 };
 
