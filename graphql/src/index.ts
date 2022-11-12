@@ -6,11 +6,8 @@ import { UsersResolver } from "./users/users.resolvers";
 import { TeamsResolver } from "./teams/teams.resolvers";
 import { buildSchema } from "type-graphql";
 import { graphqlHTTP } from "express-graphql";
-import { init } from "./db";
 
-async function run() {
-  await init();
-
+(async () => {
   const port = await portfinder.getPortPromise({
     port: 3000,
   });
@@ -33,6 +30,4 @@ async function run() {
     })
   );
   app.listen(port);
-}
-
-run();
+})();
