@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import morgan from "morgan";
 import * as portfinder from "portfinder";
 import { UsersResolver } from "./users/users.resolvers";
+import { TeamsResolver } from "./teams/teams.resolvers";
 import { buildSchema } from "type-graphql";
 import { graphqlHTTP } from "express-graphql";
 
@@ -18,7 +19,7 @@ import { graphqlHTTP } from "express-graphql";
   app.use(morgan("combined"));
 
   const schema = await buildSchema({
-    resolvers: [UsersResolver],
+    resolvers: [UsersResolver, TeamsResolver],
     emitSchemaFile: true,
   });
   app.use(

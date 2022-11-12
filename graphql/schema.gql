@@ -4,12 +4,24 @@
 # -----------------------------------------------
 
 type Mutation {
+  updateTeam(id: Float!, input: TeamInput!): Team!
   updateUser(id: Float!, input: UserInput!): User!
 }
 
 type Query {
+  getTeam(id: Float!): Team!
+  getTeams: [Team!]!
   getUser(id: Float!): User!
   getUsers: [User!]!
+}
+
+type Team {
+  id: Float!
+  name: String!
+}
+
+input TeamInput {
+  name: String!
 }
 
 type User {
