@@ -1,4 +1,4 @@
-import { query } from "express";
+import "reflect-metadata";
 import { Query, Resolver, Mutation, Arg } from "type-graphql";
 import { UserInput, User } from "./users.schema";
 
