@@ -1,13 +1,30 @@
 import "reflect-metadata";
 import { Query, Resolver, Mutation, Arg } from "type-graphql";
+import { teams } from "../teams/teams.resolvers";
+import { Team } from "../teams/teams.schema";
 import { UserInput, User } from "./users.schema";
 
 @Resolver(() => User)
 export class UsersResolver {
   private users: User[] = [
-    { id: 1, name: "John Doe", email: "johndoe@gmail.com" },
-    { id: 2, name: "Jane Doe", email: "janedoe@gmail.com" },
-    { id: 3, name: "Mike Doe", email: "mikedoe@gmail.com" },
+    {
+      id: 1,
+      name: "John Doe",
+      email: "johndoe@gmail.com",
+      team: teams.get(1) as Team,
+    },
+    {
+      id: 2,
+      name: "Jane Doe",
+      email: "janedoe@gmail.com",
+      team: teams.get(2) as Team,
+    },
+    {
+      id: 3,
+      name: "Mike Doe",
+      email: "mikedoe@gmail.com",
+      team: teams.get(3) as Team,
+    },
   ];
   @Query(() => [User])
   async getUsers(): Promise<User[]> {

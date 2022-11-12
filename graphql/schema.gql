@@ -4,13 +4,11 @@
 # -----------------------------------------------
 
 type Mutation {
-  updateTeam(id: Float!, input: TeamInput!): Team!
   updateUser(id: Float!, input: UserInput!): User!
 }
 
 type Query {
   getTeam(id: Float!): Team!
-  getTeams: [Team!]!
   getUser(id: Float!): User!
   getUsers: [User!]!
 }
@@ -20,14 +18,11 @@ type Team {
   name: String!
 }
 
-input TeamInput {
-  name: String!
-}
-
 type User {
   email: String!
   id: Float!
   name: String!
+  team: Team!
 }
 
 input UserInput {

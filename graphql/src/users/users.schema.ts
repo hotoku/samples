@@ -1,4 +1,5 @@
 import { Field, ObjectType, InputType } from "type-graphql";
+import { Team } from "../teams/teams.schema";
 
 @ObjectType()
 export class User {
@@ -8,6 +9,8 @@ export class User {
   name!: string;
   @Field()
   email!: string;
+  @Field()
+  team!: Team;
 }
 
 @InputType()
