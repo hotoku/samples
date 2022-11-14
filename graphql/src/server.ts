@@ -67,11 +67,13 @@ function createApp(): express.Express {
     }
     type Query {
       getUser(id: Int!): User
+      getTeam(id: Int!): Team
     }
   `);
 
   const rootValue = {
     getUser: getUser,
+    getTeam: getTeam,
   };
 
   app.use(bodyParser.json());
