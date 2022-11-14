@@ -22,3 +22,9 @@ export function remove() {
     unlinkSync(dbPath());
   }
 }
+
+export async function query(sql: string, ...args: any[]): Promise<any[]> {
+  console.log("query:", sql);
+  const db = await getInstance();
+  return await db.all(sql, ...args);
+}

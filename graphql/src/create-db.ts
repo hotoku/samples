@@ -10,8 +10,8 @@ async function createTables(): Promise<void> {
     create table users (
       id integer primary key,
       name text not null,
-      team_id integer not null,
-      foreign key (team_id) references teams(id)
+      teamId integer not null,
+      foreign key (teamId) references teams(id)
     );
   `;
   await db.exec(sql);
@@ -36,7 +36,7 @@ async function loadUsers(n: number): Promise<void> {
     names.push("user-" + i);
   }
   const sql = `
-    insert into users (name, team_id) values (?, ?)
+    insert into users (name, teamId) values (?, ?)
   `;
   let team = 0;
   for (const name of names) {
