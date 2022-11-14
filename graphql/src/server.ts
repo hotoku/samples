@@ -25,6 +25,7 @@ function createApp(): express.Express {
     }
   `);
 
+  // todo: 現在の実装だと、キャッシュがリクエストをまたいで保存されてしまうので解決策を調べる
   const rootValue = {
     getUser: getUser,
     getTeam: getTeam,
