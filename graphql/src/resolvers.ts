@@ -1,4 +1,4 @@
-import { getInstance } from "./db";
+import { query } from "./db";
 import DataLoader from "dataloader";
 
 type TeamResolver = {
@@ -35,8 +35,7 @@ const userLoader = new DataLoader<
   number,
   { id: number; name: string; teamId: number }
 >(async (ids) => {
-  const db = await getInstance();
-  const rows = (await db.all(
+  const rows = (await query(
     `select id, name, teamId from users where id in (${ids.join(",")})`
   )) as { id: number; name: string; teamId: number }[];
   return ids.map(
@@ -49,8 +48,7 @@ const teamLoader = new DataLoader<
   number,
   { id: number; name: string; userIds: number[] }
 >(async (ids) => {
-  const db = await getInstance();
-  const rows = (await db.all(
+  const rows = (await query(
     `select id, name from teams where id in (${ids.join(",")})`
   )) as { id: number; name: string }[];
   const map = new Map<
@@ -60,7 +58,7 @@ const teamLoader = new DataLoader<
   for (const row of rows) {
     map.set(row.id, { userIds: [], ...row });
   }
-  const rows2 = (await db.all(
+  const rows2 = (await query(
     `select id as userId, teamId from users where teamId in (${ids.join(",")})`
   )) as { userId: number; teamId: number }[];
   for (const row of rows2) {
