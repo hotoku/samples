@@ -1,5 +1,5 @@
 import { getInstance } from "./db";
-import { BatchLoadFn, CacheMap } from "dataloader";
+import DataLoader from "dataloader";
 
 type TeamResolver = {
   id: number;
@@ -9,26 +9,18 @@ type TeamResolver = {
 
 type UserResolver = {
   id: number;
-  name: () => Promise<string>;
-  team: () => Promise<TeamResolver>;
+  name: string;
+  team: () => TeamResolver;
 };
 
-export function getUser(args: { id: number }): UserResolver {
+export const getUser = async (args: { id: number }): Promise<UserResolver> => {
+  const user: any = await userLoader.load(args.id);
   return {
     id: args.id,
-    name: async () => {
-      const db = await getInstance();
-      const ret = await db.all("select name from users where id=?", args.id);
-      return ret[0].name;
-    },
-    team: async () => {
-      const db = await getInstance();
-      const ret = await db.all("select teamId from users where id=?", args.id);
-      const teamId = ret[0].teamId;
-      return getTeam({ id: teamId });
-    },
+    name: user.name,
+    team: () => getTeam(user.teamId),
   };
-}
+};
 
 export function getTeam(args: { id: number }): TeamResolver {
   return {
@@ -40,8 +32,20 @@ export function getTeam(args: { id: number }): TeamResolver {
     },
     users: async () => {
       const db = await getInstance();
-      const ret = await db.all("select id from users where teamId=?", args.id);
-      return ret.map((x) => getUser({ id: x.id }));
+      const rows = await db.all("select id from users where teamId=?", args.id);
+      const ids = rows.map((row) => row.id);
+      return Promise.all(ids.map(getUser));
     },
   };
 }
+
+const userLoader = new DataLoader<number, any>(async (ids) => {
+  const db = await getInstance();
+  const rows = await db.all(
+    `select id, name, teamId from users where id in (${ids.join(",")})`
+  );
+  return ids.map(
+    (id) =>
+      rows.find((row) => row.id === id) || new Error(`Row not found: ${id}`)
+  );
+});
