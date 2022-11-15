@@ -1,59 +1,68 @@
 import DataLoader from "dataloader";
 import { query } from "./db";
 
-export function userLoader(): DataLoader<
-  number,
-  { id: number; name: string; teamId: number }
-> {
-  return new DataLoader<number, { id: number; name: string; teamId: number }>(
-    async (ids) => {
-      const rows = (await query(
-        `select id, name, teamId from users where id in (${ids.join(",")})`
-      )) as { id: number; name: string; teamId: number }[];
-      return ids.map(
-        (id) =>
-          rows.find((row) => row.id === id) || new Error(`Row not found: ${id}`)
-      );
-    }
-  );
+export type UserRecord = {
+  id: number;
+  name: string;
+  teamId: number;
+};
+
+export type TeamRecord = {
+  id: number;
+  name: string;
+};
+
+export function userLoader(): DataLoader<number, UserRecord> {
+  return new DataLoader<number, UserRecord>(async (ids) => {
+    const rows = (await query(
+      `select id, name, teamId from users where id in (${ids.join(",")})`
+    )) as UserRecord[];
+    return ids.map(
+      (id) =>
+        rows.find((row) => row.id === id) ||
+        new Error(`User not found for: ${id}`)
+    );
+  });
 }
 
-export function teamLoader(): DataLoader<
-  number,
-  { id: number; name: string; userIds: number[] }
-> {
-  return new DataLoader<
-    number,
-    { id: number; name: string; userIds: number[] }
-  >(async (ids) => {
+export function teamLoader(): DataLoader<number, TeamRecord> {
+  return new DataLoader<number, TeamRecord>(async (ids) => {
     const rows = (await query(
       `select id, name from teams where id in (${ids.join(",")})`
     )) as { id: number; name: string }[];
-    const map = new Map<
-      number,
-      { id: number; name: string; userIds: number[] }
-    >();
+    const map = new Map<number, TeamRecord>();
     for (const row of rows) {
-      map.set(row.id, { userIds: [], ...row });
-    }
-    const rows2 = (await query(
-      `select id as userId, teamId from users where teamId in (${ids.join(
-        ","
-      )})`
-    )) as { userId: number; teamId: number }[];
-    for (const row of rows2) {
-      const team = map.get(row.teamId);
-      if (!team) continue;
-      team.userIds.push(row.userId);
+      map.set(row.id, { ...row });
     }
     return ids.map(
-      (id) => map.get(id) || new Error(`not found team id: ${id}`)
+      (id) => map.get(id) || new Error(`Team not found for: ${id}`)
     );
   });
 }
 
 export function teamUsersLoader(): DataLoader<number, number[]> {
-  return new DataLoader<number, number[]>(async (ids) => {
-    return [[1]];
+  return new DataLoader<number, number[]>(async (teamIds) => {
+    const sql = `select id as userId, teamId from users
+      where teamId in (${teamIds.join(",")})`;
+    const rows = (await query(sql)) as { userId: number; teamId: number }[];
+    const map = new Map<number, number[]>();
+    for (const row of rows) {
+      const array = map.get(row.teamId);
+      if (array === undefined) {
+        map.set(row.teamId, [row.userId]);
+      } else {
+        array.push(row.userId);
+      }
+    }
+    const ret = teamIds.map(
+      (id) => map.get(id) || new Error(`not found team id: ${id}`)
+    );
+    return ret;
   });
 }
+
+export type MyDataLoader = {
+  userLoader: DataLoader<number, UserRecord>;
+  teamLoader: DataLoader<number, TeamRecord>;
+  teamUsersLoader: DataLoader<number, number[]>;
+};
