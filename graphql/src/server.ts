@@ -4,6 +4,7 @@ import { graphqlHTTP } from "express-graphql";
 import bodyParser from "body-parser";
 import morgan from "morgan";
 import { getTeam, getUser } from "./resolvers";
+import { userLoader, teamLoader } from "./data-loaders";
 
 function createApp(): express.Express {
   const app = express();
@@ -33,14 +34,19 @@ function createApp(): express.Express {
 
   app.use(bodyParser.json());
   app.use(morgan("combined"));
-  app.use(
-    "/graphql",
-    graphqlHTTP({
+  app.use("/graphql", (req, res) => {
+    const loaders = {
+      userLoader,
+      teamLoader,
+    };
+
+    return graphqlHTTP({
       schema: schema,
       rootValue: rootValue,
       graphiql: true,
-    })
-  );
+      context: loaders,
+    })(req, res);
+  });
 
   return app;
 }
