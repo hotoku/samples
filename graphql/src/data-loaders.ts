@@ -51,3 +51,9 @@ export function teamLoader(): DataLoader<
     );
   });
 }
+
+export function teamUsersLoader(): DataLoader<number, number[]> {
+  return new DataLoader<number, number[]>(async (ids) => {
+    return [[1]];
+  });
+}
