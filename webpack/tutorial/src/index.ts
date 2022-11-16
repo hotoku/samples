@@ -1,6 +1,8 @@
 import * as _ from "lodash";
 import "./style.css";
+// @ts-ignore
 import Data from "./data.xml";
+// @ts-ignore
 import Notes from "./data.csv";
 
 function component() {
