@@ -2,9 +2,11 @@ const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
+  mode: "development",
   entry: {
     index: "./src/index.ts",
     print: "./src/print.ts",
+    another: "./src/another-module.js",
   },
   module: {
     rules: [
