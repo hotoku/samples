@@ -5,7 +5,6 @@ module.exports = {
   mode: "development",
   entry: {
     index: "./src/index.ts",
-    print: "./src/print.ts",
     another: "./src/another-module.js",
   },
   module: {
@@ -41,5 +40,8 @@ module.exports = {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
+  },
+  optimization: {
+    splitChunks: { chunks: "all" },
   },
 };
