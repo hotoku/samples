@@ -49,12 +49,9 @@ export const TeamType: GraphQLObjectType<
       type: new GraphQLList(UserType),
       resolve: async (obj, _, { loaders }, __) => {
         const userIds = await loaders.teamUsersLoader.load(obj.id);
-        const ps = [];
-        for (const id of userIds) {
-          ps.push(loaders.userLoader.load(id));
-        }
-        const ret = await Promise.all(ps);
-        return ret;
+        return await Promise.all(
+          userIds.map((userId) => loaders.userLoader.load(userId))
+        );
       },
     },
   }),
