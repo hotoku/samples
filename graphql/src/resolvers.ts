@@ -1,70 +1,82 @@
-import { query } from "./db";
-import DataLoader from "dataloader";
+import {
+  GraphQLID,
+  GraphQLInt,
+  GraphQLList,
+  GraphQLNonNull,
+  GraphQLObjectType,
+  GraphQLString,
+} from "graphql";
 
-type TeamResolver = {
-  id: number;
-  name: string;
-  users: () => Promise<UserResolver[]>;
-};
+import { UserRecord, TeamRecord, MyDataLoader } from "./data-loaders";
 
-type UserResolver = {
-  id: number;
-  name: string;
-  team: () => Promise<TeamResolver>;
-};
-
-export async function getUser(args: { id: number }): Promise<UserResolver> {
-  const user = await userLoader.load(args.id);
-  return {
-    id: args.id,
-    name: user.name,
-    team: async () => getTeam({ id: user.teamId }),
-  };
-}
-
-export async function getTeam(args: { id: number }): Promise<TeamResolver> {
-  const team = await teamLoader.load(args.id);
-  return {
-    id: args.id,
-    name: team.name,
-    users: async () => Promise.all(team.userIds.map((id) => getUser({ id }))),
-  };
-}
-
-const userLoader = new DataLoader<
-  number,
-  { id: number; name: string; teamId: number }
->(async (ids) => {
-  const rows = (await query(
-    `select id, name, teamId from users where id in (${ids.join(",")})`
-  )) as { id: number; name: string; teamId: number }[];
-  return ids.map(
-    (id) =>
-      rows.find((row) => row.id === id) || new Error(`Row not found: ${id}`)
-  );
+export const UserType: GraphQLObjectType<
+  UserRecord,
+  { loaders: MyDataLoader }
+> = new GraphQLObjectType<UserRecord, { loaders: MyDataLoader }>({
+  name: "User",
+  fields: () => ({
+    id: {
+      type: GraphQLID,
+    },
+    name: {
+      type: GraphQLString,
+    },
+    teamId: {
+      type: GraphQLInt,
+    },
+    team: {
+      type: TeamType,
+      resolve: (obj, _, { loaders }, __) => {
+        return loaders.teamLoader.load(obj.teamId);
+      },
+    },
+  }),
 });
 
-const teamLoader = new DataLoader<
-  number,
-  { id: number; name: string; userIds: number[] }
->(async (ids) => {
-  const rows = (await query(
-    `select id, name from teams where id in (${ids.join(",")})`
-  )) as { id: number; name: string }[];
-  const map = new Map<
-    number,
-    { id: number; name: string; userIds: number[] }
-  >();
-  for (const row of rows) {
-    map.set(row.id, { userIds: [], ...row });
-  }
-  const rows2 = (await query(
-    `select id as userId, teamId from users where teamId in (${ids.join(",")})`
-  )) as { userId: number; teamId: number }[];
-  for (const row of rows2) {
-    const team = map.get(row.teamId);
-    if (!team) continue;
-    team.userIds.push(row.userId);
-  }
-  return ids.map((id) => map.get(id) || new Error(`not found team id: ${id}`));
+export const TeamType: GraphQLObjectType<
+  TeamRecord,
+  { loaders: MyDataLoader }
+> = new GraphQLObjectType<TeamRecord, { loaders: MyDataLoader }>({
+  name: "Team",
+  fields: () => ({
+    id: {
+      type: GraphQLID,
+    },
+    name: {
+      type: GraphQLString,
+    },
+    users: {
+      type: new GraphQLList(UserType),
+      resolve: async (obj, _, { loaders }, __) => {
+        const userIds = await loaders.teamUsersLoader.load(obj.id);
+        return await Promise.all(
+          userIds.map((userId) => loaders.userLoader.load(userId))
+        );
+      },
+    },
+  }),
+});
+
+export const queryType = new GraphQLObjectType<{}, { loaders: MyDataLoader }>({
+  name: "Query",
+  fields: {
+    getUser: {
+      type: UserType,
+      args: {
+        id: {
+          type: new GraphQLNonNull(GraphQLInt),
+        },
+      },
+      resolve: (_, args, { loaders }) => loaders.userLoader.load(args.id),
+    },
+    getTeam: {
+      type: TeamType,
+      args: {
+        id: {
+          type: new GraphQLNonNull(GraphQLInt),
+        },
+      },
+      resolve: (_, args, { loaders }) => loaders.teamLoader.load(args.id),
+    },
+  },
 });
